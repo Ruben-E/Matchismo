@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F07D800B0E830444B5332E98 /* PlayingCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = F07D8EFC55B026944EC1FE75 /* PlayingCardDeck.m */; };
 		F07D80922F190D0058AF3C64 /* CardGameAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F07D807E5CC8F013D8F87437 /* CardGameAppDelegate.m */; };
 		F07D80B935B859E8EC5B793A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F07D87E8962A4F9DBA002A0F /* XCTest.framework */; };
 		F07D812976BB50720587B2D6 /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = F07D8828AE7879743CE9AFD4 /* Card.m */; };
@@ -55,10 +56,12 @@
 		F07D8828AE7879743CE9AFD4 /* Card.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Card.m; sourceTree = "<group>"; };
 		F07D89B20BA8F74E24F6CC6E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F07D8A200093E652044B82CC /* Matchismo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = "Matchismo-Info.plist"; sourceTree = "<group>"; };
+		F07D8A5D90BAC5604835B601 /* PlayingCardDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayingCardDeck.h; sourceTree = "<group>"; };
 		F07D8B4BDDBAA5121F610785 /* Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Card.h; sourceTree = "<group>"; };
 		F07D8CF4655E07C8F0D73013 /* MatchismoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = "MatchismoTests-Info.plist"; sourceTree = "<group>"; };
 		F07D8D931ABDFA2DC335347D /* Desk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Desk.h; sourceTree = "<group>"; };
 		F07D8E63D7AA88B2422B6843 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		F07D8EFC55B026944EC1FE75 /* PlayingCardDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayingCardDeck.m; sourceTree = "<group>"; };
 		F07D8F9712A12E40F5022C2C /* MatchismoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MatchismoTests.m; sourceTree = "<group>"; };
 		F07D8FB0E55EC09B158914C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F07D8FE3A56F2778FBE882CF /* MatchismoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MatchismoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -171,6 +174,8 @@
 				F07D8D931ABDFA2DC335347D /* Desk.h */,
 				F07D82EC1C1EC0E71EC4AD65 /* PlayingCard.m */,
 				F07D85A1C93821067E821DF6 /* PlayingCard.h */,
+				F07D8EFC55B026944EC1FE75 /* PlayingCardDeck.m */,
+				F07D8A5D90BAC5604835B601 /* PlayingCardDeck.h */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -279,6 +284,7 @@
 				F07D812976BB50720587B2D6 /* Card.m in Sources */,
 				F07D88714254BA37E97864EB /* Desk.m in Sources */,
 				F07D8D567BD3BE35A65D4353 /* PlayingCard.m in Sources */,
+				F07D800B0E830444B5332E98 /* PlayingCardDeck.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
