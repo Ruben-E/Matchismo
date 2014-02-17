@@ -10,9 +10,9 @@
 #import "PlayingCardDeck.h"
 
 @interface CardGameViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
-@property (nonatomic) int flipCount;
-@property (nonatomic) PlayingCardDeck *deck;
+@property(weak, nonatomic) IBOutlet UILabel *flipsLabel;
+@property(nonatomic) int flipCount;
+@property(nonatomic) Deck *deck;
 @end
 
 @implementation CardGameViewController
@@ -31,12 +31,14 @@
         }
     }
 
-    [sender setBackgroundImage:[UIImage imageNamed: cardImage]
-                      forState:UIControlStateNormal];
-    [sender setTitle: cardText
-            forState:UIControlStateNormal];
+    if (cardText) {
+        [sender setBackgroundImage:[UIImage imageNamed:cardImage]
+                          forState:UIControlStateNormal];
+        [sender setTitle:cardText
+                forState:UIControlStateNormal];
 
-    self.flipCount++;
+        self.flipCount++;
+    }
 }
 
 - (void)setFlipCount:(int)flipCount {
@@ -45,11 +47,15 @@
     NSLog(@"flipCount changed to %d", self.flipCount);
 }
 
-- (PlayingCardDeck *)deck {
+- (Deck *)deck {
     if (!_deck) {
-        _deck = [[PlayingCardDeck alloc] init];
+        _deck = [self createDeck];
     }
 
     return _deck;
+}
+
+- (Deck *)createDeck {
+    return [[PlayingCardDeck alloc] init];
 }
 @end
