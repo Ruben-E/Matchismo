@@ -5,6 +5,17 @@
 
 #import <Foundation/Foundation.h>
 
+@class Deck;
+@class Card;
+
 
 @interface CardMatchingGame : NSObject
+- (instancetype)initWithCardGameCount:(NSUInteger)count
+                            usingDeck:(Deck *)deck;
+
+- (void)chooseCardAtIndex:(NSUInteger)index;
+
+- (Card *)cardAtIndex:(NSUInteger)index;
+
+@property (nonatomic, readonly) NSInteger score;
 @end
