@@ -220,6 +220,22 @@
                     </view>
                     <connections>
                         <outlet property="flipsLabel" destination="sT7-yp-Fur" id="1ah-IE-tP9"/>
+                        <outletCollection property="cardButtons" destination="ktT-OX-6Fj" id="qaJ-bZ-HeQ"/>
+                        <outletCollection property="cardButtons" destination="mmH-7f-mJP" id="Tm8-Ah-KQS"/>
+                        <outletCollection property="cardButtons" destination="xHR-18-VxH" id="5je-bI-uvf"/>
+                        <outletCollection property="cardButtons" destination="OCX-PD-SFP" id="ZKq-zS-xhk"/>
+                        <outletCollection property="cardButtons" destination="lQy-6U-o9k" id="er3-ze-6VX"/>
+                        <outletCollection property="cardButtons" destination="hDn-6g-bvS" id="tla-Pe-ecF"/>
+                        <outletCollection property="cardButtons" destination="icI-l9-PHq" id="fX7-jy-azT"/>
+                        <outletCollection property="cardButtons" destination="Ijg-vw-2Ip" id="91g-fS-WFd"/>
+                        <outletCollection property="cardButtons" destination="4br-px-5Gb" id="bCY-RM-MdU"/>
+                        <outletCollection property="cardButtons" destination="G8t-kS-UJG" id="XeU-xT-3jV"/>
+                        <outletCollection property="cardButtons" destination="1zq-xO-ikX" id="CSO-b8-VP7"/>
+                        <outletCollection property="cardButtons" destination="Gv7-au-R1P" id="aBl-Sq-mqU"/>
+                        <outletCollection property="cardButtons" destination="pji-Rh-z5Y" id="vzw-9C-xbg"/>
+                        <outletCollection property="cardButtons" destination="ZtO-8T-5lz" id="hJ8-f2-ZdS"/>
+                        <outletCollection property="cardButtons" destination="ONO-rA-rs5" id="dYN-cW-4vh"/>
+                        <outletCollection property="cardButtons" destination="OBQ-56-G0k" id="n6B-RP-Osv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
