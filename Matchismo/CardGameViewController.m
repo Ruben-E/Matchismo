@@ -13,7 +13,7 @@
 @interface CardGameViewController ()
 @property(strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property(strong, nonatomic) CardMatchingGame *game;
-@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property(weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @end
 
 @implementation CardGameViewController
@@ -24,13 +24,31 @@
     [self updateUI];
 }
 
+- (IBAction)touchResetButton:(UIButton *)sender {
+    self.game = [self createGame];
+    [self updateUI];
+}
+
+- (NSArray *)cardButtons {
+    if (!_cardButtons) {
+        _cardButtons = [[NSArray alloc] init];
+    }
+
+    return _cardButtons;
+}
+
+
 - (Deck *)createDeck {
     return [[PlayingCardDeck alloc] init];
 }
 
+- (CardMatchingGame *)createGame {
+    return [[CardMatchingGame alloc] initWithCardGameCount:[self.cardButtons count] usingDeck:[self createDeck]];
+}
+
 - (CardMatchingGame *)game {
     if (!_game) {
-        _game = [[CardMatchingGame alloc] initWithCardGameCount:[self.cardButtons count] usingDeck:[self createDeck]];
+        _game = [self createGame];
     }
 
     return _game;
