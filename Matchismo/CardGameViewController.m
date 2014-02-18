@@ -10,10 +10,13 @@
 #import "PlayingCardDeck.h"
 #import "CardMatchingGame.h"
 
+static const NSUInteger DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
+
 @interface CardGameViewController ()
 @property(strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property(strong, nonatomic) CardMatchingGame *game;
 @property(weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property(nonatomic) NSUInteger numberOfMatchingCards;
 @end
 
 @implementation CardGameViewController
@@ -25,6 +28,20 @@
 }
 
 - (IBAction)touchResetButton:(UIButton *)sender {
+    [self restartGame];
+}
+
+- (IBAction)changeNumberofMatchingCards:(UISegmentedControl *)sender {
+    NSString *text = [sender titleForSegmentAtIndex:[sender selectedSegmentIndex]];
+    if ([text isEqualToString:@"2"]) {
+        self.numberOfMatchingCards = 2;
+    } else if ([text isEqualToString:@"3"]) {
+        self.numberOfMatchingCards = 3;
+    }
+    [self restartGame];
+}
+
+- (void)restartGame {
     self.game = [self createGame];
     [self updateUI];
 }
@@ -37,14 +54,22 @@
     return _cardButtons;
 }
 
-
 - (Deck *)createDeck {
     return [[PlayingCardDeck alloc] init];
 }
 
 - (CardMatchingGame *)createGame {
-    return [[CardMatchingGame alloc] initWithCardGameCount:[self.cardButtons count] usingDeck:[self createDeck]];
+    return [[CardMatchingGame alloc] initWithCardGameCount:[self.cardButtons count] usingDeck:[self createDeck] numberOfMatchingCards:[self numberOfMatchingCards]];
 }
+
+- (NSUInteger)numberOfMatchingCards {
+    if (!_numberOfMatchingCards) {
+        _numberOfMatchingCards = DEFAULT_NUMBER_OF_MATCHING_CARDS;
+    }
+
+    return _numberOfMatchingCards;
+}
+
 
 - (CardMatchingGame *)game {
     if (!_game) {

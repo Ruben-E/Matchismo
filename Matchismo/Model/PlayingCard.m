@@ -20,12 +20,18 @@
 - (int)match:(NSArray *)otherCards {
     int score = 0;
 
-    if([otherCards count] == 1) {
-        PlayingCard *otherCard = [otherCards firstObject];
-        if(otherCard.rank == self.rank) {
-            score = 4;
-        } else if ([otherCard.suit isEqualToString:self.suit]) {
-            score = 1;
+    if([otherCards count] > 1) {
+        NSMutableSet *ranks = [[NSMutableSet alloc] init];
+        NSMutableSet *suits = [[NSMutableSet alloc] init];
+        for (PlayingCard *otherCard in otherCards) {
+            [ranks addObject:[NSNumber numberWithUnsignedInteger:otherCard.rank]];
+            [suits addObject:otherCard.suit];
+        }
+
+        if ([ranks count] == 1) {
+            score = 4 * [otherCards count] - 1;
+        } else if ([suits count] == 1) {
+            score = 1 * [otherCards count] - 1;
         }
     }
 
