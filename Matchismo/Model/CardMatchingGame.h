@@ -4,6 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "History.h"
 
 @class Deck;
 @class Card;
@@ -21,4 +22,6 @@
 - (Card *)cardAtIndex:(NSUInteger)index;
 
 @property (nonatomic, readonly) NSInteger score;
+@property (nonatomic, readonly) NSUInteger flips;
+@property (nonatomic, readonly) NSMutableArray *history; // of History
 @end

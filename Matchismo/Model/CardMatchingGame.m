@@ -6,10 +6,13 @@
 #import "CardMatchingGame.h"
 #import "Deck.h"
 #import "Card.h"
+#import "History.h"
 
 
 @interface CardMatchingGame ()
 @property(nonatomic, readwrite) NSInteger score;
+@property(nonatomic, readwrite) NSUInteger flips;
+@property(nonatomic, readwrite) NSMutableArray *history;
 @property(nonatomic, strong) NSMutableArray *cards; // Of Card
 @property(nonatomic) NSUInteger numberOfMatchingCards;
 @end
@@ -44,18 +47,23 @@ static const int COST_TO_CHOSE = 1;
 - (void)chooseCardAtIndex:(NSUInteger)index {
     Card *card = [self cardAtIndex:index];
 
-    if(!card.isMatched) {
-        if(card.isChosen) {
+    self.flips++;
+
+    if (!card.isMatched) {
+        if (card.isChosen) {
             card.chosen = NO;
+            [self addAction:toBack toHistoryforCards:@[card] withResultScore:0];
         } else {
             NSMutableArray *chosenCards = [[NSMutableArray alloc] init]; // of Card
             card.chosen = YES;
 
             self.score -= COST_TO_CHOSE;
 
+            [self addAction:toFront toHistoryforCards:chosenCards withResultScore:0];
+
 
             for (Card *otherCard in self.cards) {
-                if(otherCard.isChosen && !otherCard.isMatched) {
+                if (otherCard.isChosen && !otherCard.isMatched) {
                     [chosenCards addObject:otherCard];
 
                     if ([chosenCards count] == self.numberOfMatchingCards) {
@@ -67,23 +75,43 @@ static const int COST_TO_CHOSE = 1;
             if ([chosenCards count] == self.numberOfMatchingCards) {
 
                 int matchScore = [card match:chosenCards];
-                if(matchScore) {
-                    self.score += matchScore * MATCH_BONUS;
+                if (matchScore) {
+                    NSInteger resultScore = matchScore * MATCH_BONUS;
+
                     for (Card *chosenCard in chosenCards) {
                         chosenCard.matched = YES;
                     }
+
+                    self.score += resultScore;
+
+                    [self addAction:matched toHistoryforCards:chosenCards withResultScore:resultScore];
                 } else {
-                    self.score -= MISMATCH_PENALTY;
+                    NSInteger resultScore = MISMATCH_PENALTY;
+
                     for (Card *chosenCard in chosenCards) {
                         chosenCard.matched = NO;
                         chosenCard.chosen = NO;
                     }
 
                     card.chosen = YES;
+                    self.score -= resultScore;
+
+                    [self addAction:notMatched toHistoryforCards:chosenCards withResultScore:resultScore];
                 }
             }
         }
     }
+}
+
+- (void)addAction:(enum Action)action toHistoryforCards:(NSArray *)cards withResultScore:(int)resultScore {
+    History *history = [[History alloc] init];
+    history.action = action;
+    history.cards = cards;
+    history.resultScore = resultScore;
+    history.totalScore = self.score;
+    history.totalFlips = self.flips;
+
+    [self.history addObject:history];
 }
 
 - (Card *)cardAtIndex:(NSUInteger)index {
@@ -95,7 +123,7 @@ static const int COST_TO_CHOSE = 1;
 }
 
 - (NSMutableArray *)cards {
-    if(!_cards) {
+    if (!_cards) {
         _cards = [[NSMutableArray alloc] init];
     }
 
