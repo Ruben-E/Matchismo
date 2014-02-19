@@ -5,8 +5,6 @@
 
 #import "CardMatchingGame.h"
 #import "Deck.h"
-#import "Card.h"
-#import "History.h"
 
 
 @interface CardMatchingGame ()
@@ -131,7 +129,7 @@ static const int COST_TO_CHOSE = 1;
 }
 
 - (NSMutableArray *)histories {
-    if(!_histories) {
+    if (!_histories) {
         _histories = [[NSMutableArray alloc] init];
     }
 

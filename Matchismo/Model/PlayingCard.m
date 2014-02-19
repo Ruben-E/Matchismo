@@ -20,7 +20,7 @@
 - (int)match:(NSArray *)otherCards {
     int score = 0;
 
-    if([otherCards count] > 1) {
+    if ([otherCards count] > 1) {
         NSMutableSet *ranks = [[NSMutableSet alloc] init];
         NSMutableSet *suits = [[NSMutableSet alloc] init];
         for (PlayingCard *otherCard in otherCards) {

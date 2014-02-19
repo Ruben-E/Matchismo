@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
-enum Action{
+typedef enum Action {
     toFront,
     toBack,
     matched,
@@ -13,10 +13,10 @@ enum Action{
 } Action;
 
 @interface History : NSObject
-@property (nonatomic, strong) NSArray *cards;
-@property (nonatomic) NSInteger resultScore;
-@property (nonatomic) NSInteger totalScore;
-@property (nonatomic) NSUInteger totalFlips;
-@property (nonatomic, assign) enum Action action;
+@property(nonatomic, strong) NSArray *cards;
+@property(nonatomic) NSInteger resultScore;
+@property(nonatomic) NSInteger totalScore;
+@property(nonatomic) NSUInteger totalFlips;
+@property(nonatomic, assign) enum Action action;
 
 @end

@@ -1,0 +1,8 @@
+/****************************************************************************/
+/* Localization file */
+
+
+"Score: %d" = "Score: %d";
+"Card flipped back" = "Kaart omgedraaid";
+"Matched %@ for %d points" = "Matched %@ for %d points";
+"%@ don't match! %d points penalty" = "%@ don't match! %d points penalty";

@@ -21,7 +21,7 @@
 
 - (Card *)cardAtIndex:(NSUInteger)index;
 
-@property (nonatomic, readonly) NSInteger score;
-@property (nonatomic, readonly) NSUInteger flips;
-@property (nonatomic, readonly) NSMutableArray *histories; // of History
+@property(nonatomic, readonly) NSInteger score;
+@property(nonatomic, readonly) NSUInteger flips;
+@property(nonatomic, readonly) NSMutableArray *histories; // of History
 @end

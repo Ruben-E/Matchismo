@@ -27,6 +27,8 @@ static const NSUInteger DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
 
 @implementation CardGameViewController
 
+// Handlers
+
 - (IBAction)touchCardButton:(UIButton *)sender {
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:chosenButtonIndex];
@@ -52,38 +54,7 @@ static const NSUInteger DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
     [self updateUI];
 }
 
-- (NSArray *)cardButtons {
-    if (!_cardButtons) {
-        _cardButtons = [[NSArray alloc] init];
-    }
-
-    return _cardButtons;
-}
-
-- (Deck *)createDeck {
-    return [[PlayingCardDeck alloc] init];
-}
-
-- (CardMatchingGame *)createGame {
-    return [[CardMatchingGame alloc] initWithCardGameCount:[self.cardButtons count] usingDeck:[self createDeck] numberOfMatchingCards:[self numberOfMatchingCards]];
-}
-
-- (NSUInteger)numberOfMatchingCards {
-    if (!_numberOfMatchingCards) {
-        _numberOfMatchingCards = DEFAULT_NUMBER_OF_MATCHING_CARDS;
-    }
-
-    return _numberOfMatchingCards;
-}
-
-
-- (CardMatchingGame *)game {
-    if (!_game) {
-        _game = [self createGame];
-    }
-
-    return _game;
-}
+// UI
 
 - (void)updateUI {
     for (UIButton *cardButton in self.cardButtons) {
@@ -93,7 +64,7 @@ static const NSUInteger DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
         [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
     }
-    self.scoreLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Score: %d", @"Score: %d"), self.game.score];
+    self.scoreLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Score: %d", nil), self.game.score];
 
     if (self.game.flips == 0) {
         [self.modeSwitcher setEnabled:YES];
@@ -113,18 +84,55 @@ static const NSUInteger DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
                 newText = [NSString stringWithFormat:@"%@", [[latestHistory.cards firstObject] contents]];
                 break;
             case toBack:
-                newText = @"Kaart omgedraaid";
+                newText = NSLocalizedString(@"Card flipped back", @"Kaart omgedraaid");
                 break;
             case matched:
-                newText = [NSString stringWithFormat:@"Matched %@ for %d points", [Card contentsForCards:latestHistory.cards], latestHistory.resultScore];
+                newText = [NSString stringWithFormat:NSLocalizedString(@"Matched %@ for %d points", nil), [Card contentsForCards:latestHistory.cards], latestHistory.resultScore];
                 break;
             case notMatched:
-                newText = [NSString stringWithFormat:@"%@ don't match! %d points penalty", [Card contentsForCards:latestHistory.cards], latestHistory.resultScore];
+                newText = [NSString stringWithFormat:NSLocalizedString(@"%@ don't match! %d points penalty", nil), [Card contentsForCards:latestHistory.cards], latestHistory.resultScore];
                 break;
         }
 
         [self.historyLabel setText:newText];
     }
+}
+
+// Creators
+
+- (Deck *)createDeck {
+    return [[PlayingCardDeck alloc] init];
+}
+
+- (CardMatchingGame *)createGame {
+    return [[CardMatchingGame alloc] initWithCardGameCount:[self.cardButtons count] usingDeck:[self createDeck] numberOfMatchingCards:[self numberOfMatchingCards]];
+}
+
+// Setters
+
+- (NSArray *)cardButtons {
+    if (!_cardButtons) {
+        _cardButtons = [[NSArray alloc] init];
+    }
+
+    return _cardButtons;
+}
+
+- (NSUInteger)numberOfMatchingCards {
+    if (!_numberOfMatchingCards) {
+        _numberOfMatchingCards = DEFAULT_NUMBER_OF_MATCHING_CARDS;
+    }
+
+    return _numberOfMatchingCards;
+}
+
+
+- (CardMatchingGame *)game {
+    if (!_game) {
+        _game = [self createGame];
+    }
+
+    return _game;
 }
 
 - (NSString *)titleForCard:(Card *)card {
