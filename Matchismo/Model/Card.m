@@ -21,4 +21,18 @@
     return score;
 }
 
++ (NSString *)contentsForCards:(NSArray *)cards {
+    NSMutableString *contents = [[NSMutableString alloc] init];
+    for (id obj in cards) {
+        if ([obj isKindOfClass:[Card class]]) {
+            if ([obj contents]) {
+                [contents appendString:[obj contents]];
+            }
+        }
+    }
+
+    return contents;
+}
+
+
 @end

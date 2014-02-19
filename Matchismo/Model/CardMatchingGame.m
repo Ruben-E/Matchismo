@@ -12,7 +12,7 @@
 @interface CardMatchingGame ()
 @property(nonatomic, readwrite) NSInteger score;
 @property(nonatomic, readwrite) NSUInteger flips;
-@property(nonatomic, readwrite) NSMutableArray *history;
+@property(nonatomic, readwrite) NSMutableArray *histories;
 @property(nonatomic, strong) NSMutableArray *cards; // Of Card
 @property(nonatomic) NSUInteger numberOfMatchingCards;
 @end
@@ -111,7 +111,7 @@ static const int COST_TO_CHOSE = 1;
     history.totalScore = self.score;
     history.totalFlips = self.flips;
 
-    [self.history addObject:history];
+    [self.histories addObject:history];
 }
 
 - (Card *)cardAtIndex:(NSUInteger)index {
@@ -128,6 +128,14 @@ static const int COST_TO_CHOSE = 1;
     }
 
     return _cards;
+}
+
+- (NSMutableArray *)histories {
+    if(!_histories) {
+        _histories = [[NSMutableArray alloc] init];
+    }
+
+    return _histories;
 }
 
 

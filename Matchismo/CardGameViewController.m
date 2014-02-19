@@ -93,12 +93,37 @@ static const NSUInteger DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
         [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
     }
-    self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
+    self.scoreLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Score: %d", @"Score: %d"), self.game.score];
 
     if (self.game.flips == 0) {
         [self.modeSwitcher setEnabled:YES];
     } else {
         [self.modeSwitcher setEnabled:NO];
+    }
+
+    [self updateHistoryUI];
+}
+
+- (void)updateHistoryUI {
+    History *latestHistory = [self.game.histories lastObject];
+    if (latestHistory) {
+        NSString *newText = @"";
+        switch (latestHistory.action) {
+            case toFront:
+                newText = [NSString stringWithFormat:@"%@", [[latestHistory.cards firstObject] contents]];
+                break;
+            case toBack:
+                newText = @"Kaart omgedraaid";
+                break;
+            case matched:
+                newText = [NSString stringWithFormat:@"Matched %@ for %d points", [Card contentsForCards:latestHistory.cards], latestHistory.resultScore];
+                break;
+            case notMatched:
+                newText = [NSString stringWithFormat:@"%@ don't match! %d points penalty", [Card contentsForCards:latestHistory.cards], latestHistory.resultScore];
+                break;
+        }
+
+        [self.historyLabel setText:newText];
     }
 }
 
