@@ -13,9 +13,15 @@
 static const NSUInteger DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
 
 @interface CardGameViewController ()
+// UI
 @property(strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
-@property(strong, nonatomic) CardMatchingGame *game;
 @property(weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property(weak, nonatomic) IBOutlet UIButton *resetButton;
+@property(weak, nonatomic) IBOutlet UISegmentedControl *modeSwitcher;
+@property(weak, nonatomic) IBOutlet UILabel *historyLabel;
+
+// Logic
+@property(strong, nonatomic) CardMatchingGame *game;
 @property(nonatomic) NSUInteger numberOfMatchingCards;
 @end
 
@@ -86,7 +92,13 @@ static const NSUInteger DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
         [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
         [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
-        self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
+    }
+    self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
+
+    if (self.game.flips == 0) {
+        [self.modeSwitcher setEnabled:YES];
+    } else {
+        [self.modeSwitcher setEnabled:NO];
     }
 }
 
@@ -97,5 +109,6 @@ static const NSUInteger DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
 - (UIImage *)backgroundImageForCard:(Card *)card {
     return [UIImage imageNamed:card.isChosen ? @"cardfront" : @"cardback"];
 }
+
 
 @end
