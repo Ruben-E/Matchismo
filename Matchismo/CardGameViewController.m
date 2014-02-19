@@ -49,6 +49,16 @@ static const NSUInteger DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
     [self restartGame];
 }
 
+// Helpers
+
+- (NSString *)titleForCard:(Card *)card {
+    return card.isChosen ? card.contents : @"";
+}
+
+- (UIImage *)backgroundImageForCard:(Card *)card {
+    return [UIImage imageNamed:card.isChosen ? @"cardfront" : @"cardback"];
+}
+
 - (void)restartGame {
     self.game = [self createGame];
     [self updateUI];
@@ -133,14 +143,6 @@ static const NSUInteger DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
     }
 
     return _game;
-}
-
-- (NSString *)titleForCard:(Card *)card {
-    return card.isChosen ? card.contents : @"";
-}
-
-- (UIImage *)backgroundImageForCard:(Card *)card {
-    return [UIImage imageNamed:card.isChosen ? @"cardfront" : @"cardback"];
 }
 
 
