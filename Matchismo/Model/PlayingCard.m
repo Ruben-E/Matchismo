@@ -5,6 +5,10 @@
 
 #import "PlayingCard.h"
 
+static NSUInteger const PARTIAL_MATCH_RANKS_SCORE = 3;
+static NSUInteger const PARTIAL_MATCH_SUITS_SCORE = 1;
+static NSUInteger const FULL_MATCH_RANKS_SCORE = 6;
+static NSUInteger const FULL_MATCH_SUITS_SCORE = 2;
 
 @implementation PlayingCard {
 
@@ -18,23 +22,59 @@
 }
 
 - (int)match:(NSArray *)otherCards {
-    int score = 0;
+    NSLog(@"otherCards count: %d", [otherCards count]);
 
     if ([otherCards count] > 1) {
-        NSMutableSet *ranks = [[NSMutableSet alloc] init];
-        NSMutableSet *suits = [[NSMutableSet alloc] init];
-        for (PlayingCard *otherCard in otherCards) {
-            [ranks addObject:[NSNumber numberWithUnsignedInteger:otherCard.rank]];
-            [suits addObject:otherCard.suit];
-        }
-
-        if ([ranks count] == 1) {
-            score = 4 * [otherCards count] - 1;
-        } else if ([suits count] == 1) {
-            score = 1 * [otherCards count] - 1;
-        }
+        NSInteger differentSuits = [self numberOfDifferentSuitsForCards:otherCards];
+        NSInteger differentRanks = [self numberOfDifferentRanksForCards:otherCards];
+        
+        return [self calculatePointsForNumberOfCards:[otherCards count] numberOfDifferentSuits:differentSuits NumberOfDifferentRanks:differentRanks];
     }
 
+    return 0;
+}
+
+- (int)numberOfDifferentRanksForCards:(NSArray *)cards {
+    NSMutableSet *ranks = [[NSMutableSet alloc] init];
+    
+    for (PlayingCard *card in cards) {
+        [ranks addObject:[NSNumber numberWithUnsignedInteger:card.rank]];
+    }
+    
+    return [ranks count];
+}
+
+- (int)numberOfDifferentSuitsForCards:(NSArray *)cards {
+    NSMutableSet *suits = [[NSMutableSet alloc] init];
+    
+    for (PlayingCard *card in cards) {
+        [suits addObject:card.suit];
+    }
+    
+    return [suits count];
+}
+
+- (int)calculatePointsForNumberOfCards:(NSUInteger)numberOfCards
+                numberOfDifferentSuits:(NSUInteger)numberOfDifferentSuits
+                NumberOfDifferentRanks:(NSUInteger)numberOfDifferentRanks {
+    int score=0;
+    
+    // For partial match
+    if (numberOfCards >= 3) {
+        if (numberOfDifferentRanks == 2) {
+            score = PARTIAL_MATCH_RANKS_SCORE * (numberOfCards - 1);
+        } else if (numberOfDifferentSuits == 2) {
+            score = PARTIAL_MATCH_SUITS_SCORE * (numberOfCards - 1);
+        }
+    }
+    
+    // Full match
+    if (numberOfDifferentRanks == 1) {
+        score = FULL_MATCH_RANKS_SCORE * (numberOfCards - 1);
+    } else if (numberOfDifferentSuits == 1) {
+        score = FULL_MATCH_SUITS_SCORE * (numberOfCards - 1);
+    }
+    
     return score;
 }
 
