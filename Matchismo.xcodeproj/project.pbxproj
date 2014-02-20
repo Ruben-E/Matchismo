@@ -480,6 +480,7 @@
 				F07D82B748AAE25375DADEDB /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F07D8F2B8E9B352DEC5B45C7 /* Build configuration list for PBXNativeTarget "Matchismo" */ = {
 			isa = XCConfigurationList;
@@ -488,6 +489,7 @@
 				F07D888748509A8F8BCFFF22 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F07D8FA542FA4511645174A3 /* Build configuration list for PBXProject "Matchismo" */ = {
 			isa = XCConfigurationList;
