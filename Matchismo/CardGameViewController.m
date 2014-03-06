@@ -7,7 +7,6 @@
 //
 
 #import "CardGameViewController.h"
-#import "PlayingCardDeck.h"
 #import "CardMatchingGame.h"
 
 static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
@@ -159,8 +158,8 @@ static NSString * const DEFAULT_HISTORY_LABEL_TEXT = @"No actions performed";
 
 // Creators
 
-- (Deck *)createDeck {
-    return [[PlayingCardDeck alloc] init];
+- (Deck *)createDeck {      // Abstract
+    return nil;
 }
 
 - (CardMatchingGame *)createGame {
