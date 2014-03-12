@@ -18,14 +18,6 @@
         [string appendAttributedString:symbolString];
     }
 
-    SEL colorSelector = NSSelectorFromString([NSString stringWithFormat:@"%@Color", self.color]);
-    UIColor *color = [UIColor performSelector:colorSelector];
-
-
-    [string addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0, self.number)];
-
-    NSLog(@"Content for card: %@", [string string]);
-
     return string;
 }
 

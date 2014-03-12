@@ -8,6 +8,7 @@
 
 #import "SetGameViewController.h"
 #import "SetCardDeck.h"
+#import "SetCard.h"
 
 @interface SetGameViewController ()
 // UI
@@ -55,7 +56,7 @@
     for (UIButton *cardButton in self.cardButtons) {
         int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
         Card *card = [self.game cardAtIndex:cardButtonIndex];
-        [cardButton setAttributedTitle:[super titleForCard:card] forState:UIControlStateNormal];
+        [cardButton setAttributedTitle:[self titleForCard:card] forState:UIControlStateNormal];
         [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
     }
@@ -142,6 +143,30 @@
     NSLog(@"SliderValue ... %d", (int) [sender value]);
 
     [self updateHistoryLabelUIForHistoryIndex:[sender value]];
+}
+
+- (NSString *)titleForCard:(SetCard *)card {
+    NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithAttributedString:[super titleForCard:card]];
+
+    if(![[title string] isEqualToString:@""]) {
+        SEL colorSelector = NSSelectorFromString([NSString stringWithFormat:@"%@Color", card.color]);
+        UIColor *color = [UIColor performSelector:colorSelector];
+
+        if([card.shading isEqualToString:@"solid"]) {
+            [title addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0, card.number)];
+        } else if ([card.shading isEqualToString:@"stripped"]) {
+            [title addAttribute:NSForegroundColorAttributeName value:[color colorWithAlphaComponent:0.5] range:NSMakeRange(0, card.number)];
+        } else {
+            [title addAttribute:NSForegroundColorAttributeName value:[color colorWithAlphaComponent:0] range:NSMakeRange(0, card.number)];
+        }
+
+        [title addAttribute:NSStrokeWidthAttributeName value:[NSNumber numberWithFloat:-5.0] range:NSMakeRange(0, card.number)];
+        [title addAttribute:NSStrokeColorAttributeName value:color range:NSMakeRange(0, card.number)];
+
+        NSLog(@"Content for card: %@", [title string]);
+    }
+
+    return title;
 }
 
 @end
