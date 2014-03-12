@@ -14,7 +14,6 @@
 // UI
 @property(weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property(weak, nonatomic) IBOutlet UIButton *resetButton;
-@property(weak, nonatomic) IBOutlet UISegmentedControl *modeSwitcher;
 @property(weak, nonatomic) IBOutlet UILabel *historyLabel;
 @property(weak, nonatomic) IBOutlet UISlider *historySlider;
 
@@ -128,16 +127,6 @@
 
 - (IBAction)touchResetButton:(UIButton *)sender {
     [self restartGame];
-}
-
-- (IBAction)changeNumberofMatchingCards:(UISegmentedControl *)sender {
-    NSString *text = [sender titleForSegmentAtIndex:[sender selectedSegmentIndex]];
-    NSInteger value = [text integerValue];
-
-    if (value) {
-        self.numberOfMatchingCards = value;
-        [self restartGame];
-    }
 }
 
 - (IBAction)historySliderChanged:(UISlider *)sender {

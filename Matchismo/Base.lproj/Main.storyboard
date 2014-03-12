@@ -834,18 +834,6 @@
                                     <action selector="touchCardButton:" destination="NO0-Se-zYw" eventType="touchUpInside" id="HJz-nM-o6i"/>
                                 </connections>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qPs-cf-SHB">
-                                <rect key="frame" x="236" y="383" width="64" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="2"/>
-                                    <segment title="3"/>
-                                </segments>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <action selector="changeNumberofMatchingCards:" destination="NO0-Se-zYw" eventType="valueChanged" id="ma9-KA-TDn"/>
-                                </connections>
-                            </segmentedControl>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Spel niet gestart" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="am8-ez-jzA">
                                 <rect key="frame" x="20" y="348" width="280" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -854,7 +842,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Jpb-wV-GgK">
-                                <rect key="frame" x="18" y="378" width="188" height="34"/>
+                                <rect key="frame" x="18" y="378" width="284" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -904,7 +892,6 @@
                     <connections>
                         <outlet property="historyLabel" destination="am8-ez-jzA" id="yZi-DE-hRS"/>
                         <outlet property="historySlider" destination="Jpb-wV-GgK" id="uVQ-BA-phJ"/>
-                        <outlet property="modeSwitcher" destination="qPs-cf-SHB" id="24z-Fl-LiE"/>
                         <outlet property="resetButton" destination="6uk-Q0-j8A" id="xkz-mw-r6B"/>
                         <outlet property="scoreLabel" destination="KtK-m1-XN6" id="37t-ob-CNF"/>
                         <outletCollection property="cardButtons" destination="N6i-TS-zRj" id="qUl-TJ-s9r"/>
