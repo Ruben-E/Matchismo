@@ -14,8 +14,21 @@
     return [super match:otherCards];
 }
 
-- (NSString *)contents {
-    return @"";
+- (NSAttributedString *)contents {
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@""];
+
+    for (int i = 0; i < self.number; i++) {
+        NSMutableAttributedString *symbolString = [[NSMutableAttributedString alloc] initWithString:self.symbol];
+        [string appendAttributedString:symbolString];
+    }
+
+    SEL colorSelector = NSSelectorFromString([NSString stringWithFormat:@"%@Color", self.color]);
+    UIColor *color = [UIColor performSelector:colorSelector];
+
+
+    [string addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0, self.number)];
+
+    return string;
 }
 
 
@@ -34,7 +47,6 @@
 + (NSUInteger)maxNumber {
     return 3;
 }
-
 
 
 @end
