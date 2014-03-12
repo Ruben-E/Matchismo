@@ -139,10 +139,9 @@
 }
 
 - (IBAction)historySliderChanged:(UISlider *)sender {
-    UISlider *slider = (UISlider *)sender;
-    NSLog(@"SliderValue ... %d",(int)[slider value]);
+    NSLog(@"SliderValue ... %d",(int)[sender value]);
     
-    [self updateHistoryLabelUIForHistoryIndex:[slider value]];
+    [self updateHistoryLabelUIForHistoryIndex:[sender value]];
 }
 
 @end
