@@ -15,7 +15,7 @@
 @property(weak, nonatomic) IBOutlet UIButton *resetButton;
 @property(weak, nonatomic) IBOutlet UISegmentedControl *modeSwitcher;
 @property(weak, nonatomic) IBOutlet UILabel *historyLabel;
-@property (weak, nonatomic) IBOutlet UISlider *historySlider;
+@property(weak, nonatomic) IBOutlet UISlider *historySlider;
 
 @end
 
@@ -36,7 +36,7 @@
 
 - (void)updateUI {
     self.scoreLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Score: %d", nil), self.game.score];
-    
+
     [self updateModeSwitcherUI];
     [self updateButtonsUI];
     [self updateHistoryLabelUI];
@@ -65,7 +65,7 @@
     History *latestHistory = [self.game.histories lastObject];
     if (latestHistory) {
         NSUInteger latestHistoryId = [self.game.histories indexOfObject:latestHistory];
-        
+
         [self updateHistoryLabelUIForHistoryIndex:latestHistoryId];
     } else {
         [self updateHistoryLabelUIForHistoryIndex:0];
@@ -74,10 +74,10 @@
 
 - (void)updateHistoryLabelUIForHistoryIndex:(NSUInteger)index {
     NSString *newText = @"";
-    
-    if([self.game.histories count] > index) {
+
+    if ([self.game.histories count] > index) {
         History *history = [self.game.histories objectAtIndex:index];
-        
+
         switch (history.action) {
             case toFront:
                 newText = [NSString stringWithFormat:@"%@", [[[history.cards firstObject] contents] string]];
@@ -95,8 +95,8 @@
     } else {
         newText = [NSString stringWithFormat:DEFAULT_HISTORY_LABEL_TEXT];
     }
-    
-    
+
+
     [self.historyLabel setText:newText];
 }
 
@@ -131,7 +131,7 @@
 - (IBAction)changeNumberofMatchingCards:(UISegmentedControl *)sender {
     NSString *text = [sender titleForSegmentAtIndex:[sender selectedSegmentIndex]];
     NSInteger value = [text integerValue];
-    
+
     if (value) {
         self.numberOfMatchingCards = value;
         [self restartGame];
@@ -139,8 +139,8 @@
 }
 
 - (IBAction)historySliderChanged:(UISlider *)sender {
-    NSLog(@"SliderValue ... %d",(int)[sender value]);
-    
+    NSLog(@"SliderValue ... %d", (int) [sender value]);
+
     [self updateHistoryLabelUIForHistoryIndex:[sender value]];
 }
 
