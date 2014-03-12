@@ -26,6 +26,7 @@
     [super viewDidLoad];
 
     self.deck = [[SetCardDeck alloc] init];
+    self.numberOfMatchingCards = 3;
 }
 
 - (void)restartGame {
