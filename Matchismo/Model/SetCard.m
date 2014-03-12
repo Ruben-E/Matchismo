@@ -10,10 +10,6 @@
 
 @implementation SetCard
 
-- (int)match:(NSArray *)otherCards {
-    return [super match:otherCards];
-}
-
 - (NSAttributedString *)contents {
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@""];
 
@@ -28,7 +24,19 @@
 
     [string addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0, self.number)];
 
+    NSLog(@"Content for card: %@", [string string]);
+
     return string;
+}
+
+- (int)match:(NSArray *)otherCards {
+    NSLog(@"otherCards count: %d", [otherCards count]);
+
+    if ([otherCards count] > 1) {
+        return 1;
+    }
+
+    return 0;
 }
 
 

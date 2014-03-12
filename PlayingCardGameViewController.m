@@ -55,7 +55,7 @@
     for (UIButton *cardButton in self.cardButtons) {
         int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
         Card *card = [self.game cardAtIndex:cardButtonIndex];
-        [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
+        [cardButton setAttributedTitle:[super titleForCard:card] forState:UIControlStateNormal];
         [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
     }
@@ -80,7 +80,7 @@
         
         switch (history.action) {
             case toFront:
-                newText = [NSString stringWithFormat:@"%@", [[history.cards firstObject] contents]];
+                newText = [NSString stringWithFormat:@"%@", [[[history.cards firstObject] contents] string]];
                 break;
             case toBack:
                 newText = NSLocalizedString(@"Card flipped back", @"Kaart omgedraaid");

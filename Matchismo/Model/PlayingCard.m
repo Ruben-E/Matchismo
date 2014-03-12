@@ -16,9 +16,9 @@ static NSUInteger const FULL_MATCH_SUITS_SCORE = 2;
 
 @synthesize suit = _suit;
 
-- (NSString *)contents {
+- (NSAttributedString *)contents {
     NSArray *rankStrings = [PlayingCard rankStrings];
-    return [rankStrings[self.rank] stringByAppendingString:self.suit];
+    return [[NSAttributedString alloc] initWithString:[rankStrings[self.rank] stringByAppendingString:self.suit]];
 }
 
 - (int)match:(NSArray *)otherCards {

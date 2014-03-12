@@ -19,8 +19,8 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
 
 // Helpers
 
-- (NSString *)titleForCard:(Card *)card {
-    return card.isChosen ? card.contents : @"";
+- (NSAttributedString *)titleForCard:(Card *)card {
+    return card.isChosen ? card.contents : [[NSAttributedString alloc] initWithString:@""];
 }
 
 - (UIImage *)backgroundImageForCard:(Card *)card {

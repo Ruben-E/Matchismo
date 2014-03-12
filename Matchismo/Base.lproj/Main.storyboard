@@ -902,6 +902,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="Set Cards" id="Is1-ti-MO2"/>
                     <connections>
+                        <outlet property="historyLabel" destination="am8-ez-jzA" id="yZi-DE-hRS"/>
+                        <outlet property="historySlider" destination="Jpb-wV-GgK" id="uVQ-BA-phJ"/>
+                        <outlet property="modeSwitcher" destination="qPs-cf-SHB" id="24z-Fl-LiE"/>
                         <outlet property="resetButton" destination="6uk-Q0-j8A" id="xkz-mw-r6B"/>
                         <outlet property="scoreLabel" destination="KtK-m1-XN6" id="37t-ob-CNF"/>
                         <outletCollection property="cardButtons" destination="N6i-TS-zRj" id="qUl-TJ-s9r"/>

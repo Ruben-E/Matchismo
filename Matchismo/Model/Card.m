@@ -4,6 +4,7 @@
 //
 
 #import "Card.h"
+#import "SetCard.h"
 
 
 @implementation Card {
@@ -13,7 +14,7 @@
     int score = 0;
 
     for (Card *card in otherCards) {
-        if ([card.contents isEqualToString:self.contents]) {
+        if ([card.contents isEqualToAttributedString:self.contents]) {
             score = 1;
         }
     }
@@ -25,8 +26,12 @@
     NSMutableString *contents = [[NSMutableString alloc] init];
     for (id obj in cards) {
         if ([obj isKindOfClass:[Card class]]) {
-            if ([obj contents]) {
-                [contents appendString:[obj contents]];
+            if([obj contents]) {
+                if ([[obj contents] isKindOfClass:[NSAttributedString class]]) {
+                    [contents appendString:[[obj contents] string]];
+                } else if ([[obj contents] isKindOfClass:[NSString class]]) {
+                    [contents appendString:[obj contents]];
+                }
             }
         }
     }
