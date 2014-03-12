@@ -377,20 +377,12 @@
                                 </connections>
                             </segmentedControl>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Spel niet gestart" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNT-zn-ynq">
-                                <rect key="frame" x="20" y="349" width="280" height="21"/>
+                                <rect key="frame" x="20" y="390" width="208" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="y4S-gy-Wlu">
-                                <rect key="frame" x="18" y="378" width="188" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <action selector="historySliderChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="5Zg-EN-JzB"/>
-                                </connections>
-                            </slider>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="OBQ-56-G0k">
                                 <rect key="frame" x="20" y="142" width="28" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -430,10 +422,15 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Playing Cards" id="QQ3-0z-mN6"/>
+                    <navigationItem key="navigationItem" title="Playing Cards" id="QQ3-0z-mN6">
+                        <barButtonItem key="rightBarButtonItem" title="History" id="3mi-ez-vqL">
+                            <connections>
+                                <segue destination="f0R-w8-Ktv" kind="push" identifier="showHistory" id="iKS-wq-rNp"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="historyLabel" destination="BNT-zn-ynq" id="aHu-Mo-shp"/>
-                        <outlet property="historySlider" destination="y4S-gy-Wlu" id="MnL-LS-eSo"/>
                         <outlet property="modeSwitcher" destination="aOb-Kq-fLe" id="xY1-L2-q8r"/>
                         <outlet property="resetButton" destination="65w-DR-hUd" id="bNT-sv-6ab"/>
                         <outlet property="scoreLabel" destination="ot3-mT-Kf5" id="MPD-Ss-a1F"/>
@@ -472,6 +469,47 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1552" y="-174"/>
+        </scene>
+        <!--History View Controller - History-->
+        <scene sceneID="5WQ-hV-fQS">
+            <objects>
+                <viewController id="f0R-w8-Ktv" customClass="HistoryViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ag7-gf-Hmb"/>
+                        <viewControllerLayoutGuide type="bottom" id="SVG-Y6-Hok"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mhJ-6M-Eoq">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="431"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="History" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dt8-01-Xci">
+                                <rect key="frame" x="20" y="82" width="280" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="uCj-8T-k7E">
+                                <rect key="frame" x="18" y="378" width="284" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="historySliderChanged:" destination="f0R-w8-Ktv" eventType="valueChanged" id="N4O-g6-tVB"/>
+                                </connections>
+                            </slider>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="History" id="5Ie-EM-22s">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="tzI-qH-OlA"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="historyLabel" destination="Dt8-01-Xci" id="UTr-Za-GGv"/>
+                        <outlet property="historySlider" destination="uCj-8T-k7E" id="8do-2N-BcY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="osQ-ep-Bfs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2376" y="176"/>
         </scene>
         <!--Set Game View Controller - Set Cards-->
         <scene sceneID="f8O-VN-58h">
@@ -835,20 +873,12 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Spel niet gestart" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="am8-ez-jzA">
-                                <rect key="frame" x="20" y="348" width="280" height="21"/>
+                                <rect key="frame" x="20" y="390" width="280" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Jpb-wV-GgK">
-                                <rect key="frame" x="18" y="378" width="284" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <action selector="historySliderChanged:" destination="NO0-Se-zYw" eventType="valueChanged" id="xO1-ZA-kZF"/>
-                                </connections>
-                            </slider>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="N6i-TS-zRj">
                                 <rect key="frame" x="20" y="141" width="28" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -888,10 +918,15 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Set Cards" id="Is1-ti-MO2"/>
+                    <navigationItem key="navigationItem" title="Set Cards" id="Is1-ti-MO2">
+                        <barButtonItem key="rightBarButtonItem" title="History" id="SFY-8u-sUC">
+                            <connections>
+                                <segue destination="f0R-w8-Ktv" kind="push" identifier="showHistory" id="J4K-VK-4dh"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="historyLabel" destination="am8-ez-jzA" id="yZi-DE-hRS"/>
-                        <outlet property="historySlider" destination="Jpb-wV-GgK" id="uVQ-BA-phJ"/>
                         <outlet property="resetButton" destination="6uk-Q0-j8A" id="xkz-mw-r6B"/>
                         <outlet property="scoreLabel" destination="KtK-m1-XN6" id="37t-ob-CNF"/>
                         <outletCollection property="cardButtons" destination="N6i-TS-zRj" id="qUl-TJ-s9r"/>
@@ -996,4 +1031,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="J4K-VK-4dh"/>
+    </inferredMetricsTieBreakers>
 </document>

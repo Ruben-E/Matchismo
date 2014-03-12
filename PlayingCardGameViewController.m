@@ -8,6 +8,7 @@
 
 #import "PlayingCardGameViewController.h"
 #import "PlayingCardDeck.h"
+#import "HistoryViewController.h"
 
 @interface PlayingCardGameViewController ()
 // UI
@@ -40,7 +41,6 @@
     [self updateModeSwitcherUI];
     [self updateButtonsUI];
     [self updateHistoryLabelUI];
-    [self updateHistorySliderUI];
 }
 
 - (void)updateModeSwitcherUI {
@@ -100,22 +100,6 @@
     [self.historyLabel setText:newText];
 }
 
-- (void)updateHistorySliderUI {
-    if ([self.game.histories count] > 0) {
-        [self.historySlider setEnabled:YES];
-        [self.historySlider setMaximumValue:([self.game.histories count] - 1)];
-        [self.historySlider setMinimumValue:0];
-        [self.historySlider setContentScaleFactor:1];
-        [self.historySlider setValue:([self.game.histories count] - 1)];
-        if ([self.game.histories count] > 1) {
-            [self.historySlider setHidden:NO];
-        }
-    } else {
-        [self.historySlider setEnabled:NO];
-        [self.historySlider setHidden:YES];
-    }
-}
-
 // Handlers
 
 - (IBAction)touchCardButton:(UIButton *)sender {
@@ -138,11 +122,11 @@
     }
 }
 
-- (IBAction)historySliderChanged:(UISlider *)sender {
-    UISlider *slider = (UISlider *)sender;
-    NSLog(@"SliderValue ... %d",(int)[slider value]);
-
-    [self updateHistoryLabelUIForHistoryIndex:[slider value]];
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"showHistory"]) {
+        HistoryViewController *destViewController = segue.destinationViewController;
+        destViewController.game = [self game];
+    }
 }
 
 @end

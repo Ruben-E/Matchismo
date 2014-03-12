@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		110DA7E318D0A9710047D4F0 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 110DA7E218D0A9710047D4F0 /* HistoryViewController.m */; };
 		11DBFD0018C86FC600136A62 /* SetGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DBFCFF18C86FC600136A62 /* SetGameViewController.m */; };
 		11DBFD0318C87F3300136A62 /* PlayingCardGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DBFD0218C87F3300136A62 /* PlayingCardGameViewController.m */; };
 		11DBFD0618C8866A00136A62 /* SetCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DBFD0518C8866A00136A62 /* SetCard.m */; };
@@ -45,6 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		110DA7E118D0A9710047D4F0 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
+		110DA7E218D0A9710047D4F0 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 		11DBFCFE18C86FC600136A62 /* SetGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetGameViewController.h; sourceTree = "<group>"; };
 		11DBFCFF18C86FC600136A62 /* SetGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetGameViewController.m; sourceTree = "<group>"; };
 		11DBFD0118C87F3300136A62 /* PlayingCardGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayingCardGameViewController.h; path = ../PlayingCardGameViewController.h; sourceTree = "<group>"; };
@@ -143,6 +146,8 @@
 				F07D81D6AB38854395CA204B /* Main.storyboard */,
 				F07D83AB70828E1F01881D10 /* CardGameViewController.h */,
 				F07D8075A1B6DAB17C7AB6C5 /* CardGameViewController.m */,
+				110DA7E118D0A9710047D4F0 /* HistoryViewController.h */,
+				110DA7E218D0A9710047D4F0 /* HistoryViewController.m */,
 				11DBFCFE18C86FC600136A62 /* SetGameViewController.h */,
 				11DBFCFF18C86FC600136A62 /* SetGameViewController.m */,
 				11DBFD0118C87F3300136A62 /* PlayingCardGameViewController.h */,
@@ -322,6 +327,7 @@
 				11DBFD0618C8866A00136A62 /* SetCard.m in Sources */,
 				11DBFD0318C87F3300136A62 /* PlayingCardGameViewController.m in Sources */,
 				F07D812976BB50720587B2D6 /* Card.m in Sources */,
+				110DA7E318D0A9710047D4F0 /* HistoryViewController.m in Sources */,
 				F07D88714254BA37E97864EB /* Deck.m in Sources */,
 				F07D800B0E830444B5332E98 /* PlayingCardDeck.m in Sources */,
 				F07D86622DC6BCCDD1C9CA5D /* PlayingCard.m in Sources */,

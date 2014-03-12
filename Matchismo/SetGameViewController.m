@@ -9,6 +9,7 @@
 #import "SetGameViewController.h"
 #import "SetCardDeck.h"
 #import "SetCard.h"
+#import "HistoryViewController.h"
 
 @interface SetGameViewController ()
 // UI
@@ -38,18 +39,8 @@
 - (void)updateUI {
     self.scoreLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Score: %d", nil), self.game.score];
 
-    [self updateModeSwitcherUI];
     [self updateButtonsUI];
     [self updateHistoryLabelUI];
-    [self updateHistorySliderUI];
-}
-
-- (void)updateModeSwitcherUI {
-    if (self.game.flips == 0) {
-        [self.modeSwitcher setEnabled:YES];
-    } else {
-        [self.modeSwitcher setEnabled:NO];
-    }
 }
 
 - (void)updateButtonsUI {
@@ -101,22 +92,6 @@
     [self.historyLabel setText:newText];
 }
 
-- (void)updateHistorySliderUI {
-    if ([self.game.histories count] > 0) {
-        [self.historySlider setEnabled:YES];
-        [self.historySlider setMaximumValue:([self.game.histories count] - 1)];
-        [self.historySlider setMinimumValue:0];
-        [self.historySlider setContentScaleFactor:1];
-        [self.historySlider setValue:([self.game.histories count] - 1)];
-        if ([self.game.histories count] > 1) {
-            [self.historySlider setHidden:NO];
-        }
-    } else {
-        [self.historySlider setEnabled:NO];
-        [self.historySlider setHidden:YES];
-    }
-}
-
 // Handlers
 
 - (IBAction)touchCardButton:(UIButton *)sender {
@@ -127,12 +102,6 @@
 
 - (IBAction)touchResetButton:(UIButton *)sender {
     [self restartGame];
-}
-
-- (IBAction)historySliderChanged:(UISlider *)sender {
-    NSLog(@"SliderValue ... %d", (int) [sender value]);
-
-    [self updateHistoryLabelUIForHistoryIndex:[sender value]];
 }
 
 - (NSString *)titleForCard:(SetCard *)card {
@@ -157,6 +126,13 @@
     }
 
     return title;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"showHistory"]) {
+        HistoryViewController *destViewController = segue.destinationViewController;
+        destViewController.game = [self game];
+    }
 }
 
 @end
