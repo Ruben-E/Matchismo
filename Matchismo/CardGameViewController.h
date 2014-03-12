@@ -9,10 +9,23 @@
 
 #import <UIKit/UIKit.h>
 #import "Deck.h"
+#import "CardMatchingGame.h"
+
+static NSString * const DEFAULT_HISTORY_LABEL_TEXT = @"No actions performed";
 
 @interface CardGameViewController : UIViewController
 
-// Protected
-// for subclasses
-- (Deck *)createDeck;       // Abstract
+// UI
+@property(strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+
+// Logic
+@property(nonatomic) NSUInteger numberOfMatchingCards;
+@property(strong, nonatomic) CardMatchingGame *game;
+@property(strong, nonatomic) Deck *deck;
+
+- (CardMatchingGame *)game;
+- (NSArray *)cardButtons;
+- (NSString *)titleForCard:(Card *)card;
+- (UIImage *)backgroundImageForCard:(Card *)card;
+- (void)restartGame;
 @end

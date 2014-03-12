@@ -10,4 +10,10 @@
 
 @interface SetCard : Card
 
++ (NSArray *)validSymbols;
++ (NSArray *)validShadings;
++ (NSArray *)validColors;
+
++ (NSUInteger)maxNumber;
+
 @end
