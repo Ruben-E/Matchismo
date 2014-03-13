@@ -482,13 +482,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="431"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="History" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dt8-01-Xci">
-                                <rect key="frame" x="20" y="82" width="280" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="uCj-8T-k7E">
                                 <rect key="frame" x="18" y="378" width="284" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -496,6 +489,13 @@
                                     <action selector="historySliderChanged:" destination="f0R-w8-Ktv" eventType="valueChanged" id="N4O-g6-tVB"/>
                                 </connections>
                             </slider>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="History" translatesAutoresizingMaskIntoConstraints="NO" id="XT7-9b-thH">
+                                <rect key="frame" x="20" y="78" width="280" height="276"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -503,7 +503,7 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="tzI-qH-OlA"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="historyLabel" destination="Dt8-01-Xci" id="UTr-Za-GGv"/>
+                        <outlet property="historyLabel" destination="XT7-9b-thH" id="93q-PE-AdQ"/>
                         <outlet property="historySlider" destination="uCj-8T-k7E" id="8do-2N-BcY"/>
                     </connections>
                 </viewController>
@@ -665,6 +665,30 @@
                                 </state>
                                 <connections>
                                     <action selector="touchCardButton:" destination="NO0-Se-zYw" eventType="touchUpInside" id="oV5-bY-ilW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="zCs-2p-udb">
+                                <rect key="frame" x="236" y="291" width="28" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <state key="normal" backgroundImage="cardback">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="touchCardButton:" destination="NO0-Se-zYw" eventType="touchUpInside" id="zKA-G0-tbc"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="yp8-4U-LtY">
+                                <rect key="frame" x="272" y="291" width="28" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <state key="normal" backgroundImage="cardback">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="touchCardButton:" destination="NO0-Se-zYw" eventType="touchUpInside" id="Qnd-fR-RL5"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="ErS-pr-nDT">
@@ -959,6 +983,8 @@
                         <outletCollection property="cardButtons" destination="u73-1f-lXB" id="lbH-Cl-H2Q"/>
                         <outletCollection property="cardButtons" destination="92h-qx-oLX" id="jXT-8o-VCL"/>
                         <outletCollection property="cardButtons" destination="Hfd-26-TvO" id="r0Z-1m-2Dt"/>
+                        <outletCollection property="cardButtons" destination="zCs-2p-udb" id="EKa-ny-1u4"/>
+                        <outletCollection property="cardButtons" destination="yp8-4U-LtY" id="kcr-c9-LHr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="swe-DQ-oYL" userLabel="First Responder" sceneMemberID="firstResponder"/>
