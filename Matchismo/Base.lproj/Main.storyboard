@@ -939,6 +939,11 @@
                                     <action selector="touchResetButton:" destination="NO0-Se-zYw" eventType="touchUpInside" id="ZVA-ip-xQr"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M8c-8H-LyE" customClass="SetCardView">
+                                <rect key="frame" x="80" y="83" width="160" height="240"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -953,6 +958,7 @@
                         <outlet property="historyLabel" destination="am8-ez-jzA" id="yZi-DE-hRS"/>
                         <outlet property="resetButton" destination="6uk-Q0-j8A" id="xkz-mw-r6B"/>
                         <outlet property="scoreLabel" destination="KtK-m1-XN6" id="37t-ob-CNF"/>
+                        <outlet property="setCardView" destination="M8c-8H-LyE" id="pkp-lE-Ky8"/>
                         <outletCollection property="cardButtons" destination="N6i-TS-zRj" id="qUl-TJ-s9r"/>
                         <outletCollection property="cardButtons" destination="a7U-2O-gZ2" id="YWR-uJ-MSF"/>
                         <outletCollection property="cardButtons" destination="ih5-ft-BEg" id="N5d-Bl-a9l"/>

@@ -10,6 +10,7 @@
 #import "SetCardDeck.h"
 #import "SetCard.h"
 #import "HistoryViewController.h"
+#import "SetCardView.h"
 
 @interface SetGameViewController ()
 // UI
@@ -17,6 +18,7 @@
 @property(weak, nonatomic) IBOutlet UIButton *resetButton;
 @property(weak, nonatomic) IBOutlet UILabel *historyLabel;
 @property(weak, nonatomic) IBOutlet UISlider *historySlider;
+@property (weak, nonatomic) IBOutlet SetCardView *setCardView;
 
 @end
 
@@ -27,6 +29,11 @@
 
     self.deck = [[SetCardDeck alloc] init];
     self.numberOfMatchingCards = 3;
+    
+    self.setCardView.symbol = @"diamond";
+    self.setCardView.shading = @"solid";
+    self.setCardView.color = @"red";
+    self.setCardView.number = 2;
 }
 
 - (void)restartGame {
