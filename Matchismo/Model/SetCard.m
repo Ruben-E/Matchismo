@@ -68,7 +68,7 @@ static NSUInteger const FULL_MATCH_SCORE = 10;
     int score = 0;
 
     if ((uniqueNumbers == 3 || uniqueNumbers == 1) &&
-            (uniqueSymbols == 3 || uniqueSymbols == 1) ||
+            (uniqueSymbols == 3 || uniqueSymbols == 1) &&
             (uniqueShadings == 3 || uniqueShadings == 1) &&
                     (uniqueColors == 3 || uniqueColors == 1)) {
 

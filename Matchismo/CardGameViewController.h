@@ -25,7 +25,7 @@ static NSString * const DEFAULT_HISTORY_LABEL_TEXT = @"No actions performed";
 
 - (CardMatchingGame *)game;
 - (NSArray *)cardButtons;
-- (NSString *)titleForCard:(Card *)card;
+- (NSAttributedString *)titleForCard:(Card *)card;
 - (UIImage *)backgroundImageForCard:(Card *)card;
 - (void)restartGame;
 @end

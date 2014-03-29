@@ -104,7 +104,7 @@
     [self restartGame];
 }
 
-- (NSString *)titleForCard:(SetCard *)card {
+- (NSAttributedString *)titleForCard:(SetCard *)card {
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithAttributedString:[super titleForCard:card]];
 
     if(![[title string] isEqualToString:@""]) {
