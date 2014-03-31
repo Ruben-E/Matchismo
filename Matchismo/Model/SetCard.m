@@ -80,11 +80,11 @@ static NSUInteger const FULL_MATCH_SCORE = 10;
 
 
 + (NSArray *)validSymbols {
-    return @[@"▲", @"■", @"●"];
+    return @[@"squiggle", @"oval", @"diamond"];
 }
 
 + (NSArray *)validShadings {
-    return @[@"open", @"stripped", @"solid"];
+    return @[@"open", @"striped", @"solid"];
 }
 
 + (NSArray *)validColors {

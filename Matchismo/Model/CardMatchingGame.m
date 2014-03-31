@@ -11,7 +11,7 @@
 @property(nonatomic, readwrite) NSInteger score;
 @property(nonatomic, readwrite) NSUInteger flips;
 @property(nonatomic, readwrite) NSMutableArray *histories;
-@property(nonatomic, strong) NSMutableArray *cards; // Of Card
+@property(strong, nonatomic, readwrite) NSMutableArray *cards; // Of Card
 @property(nonatomic) NSUInteger numberOfMatchingCards;
 @end
 

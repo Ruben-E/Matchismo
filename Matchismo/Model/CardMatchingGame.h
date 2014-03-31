@@ -23,5 +23,6 @@
 
 @property(nonatomic, readonly) NSInteger score;
 @property(nonatomic, readonly) NSUInteger flips;
+@property(strong, nonatomic, readonly) NSMutableArray *cards; // Of Card
 @property(nonatomic, readonly) NSMutableArray *histories; // of History
 @end

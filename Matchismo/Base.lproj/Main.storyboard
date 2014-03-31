@@ -944,6 +944,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5bF-Ch-7BR">
+                                <rect key="frame" x="20" y="141" width="280" height="216"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -955,6 +960,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="gridView" destination="5bF-Ch-7BR" id="nwt-BZ-wkm"/>
                         <outlet property="historyLabel" destination="am8-ez-jzA" id="yZi-DE-hRS"/>
                         <outlet property="resetButton" destination="6uk-Q0-j8A" id="xkz-mw-r6B"/>
                         <outlet property="scoreLabel" destination="KtK-m1-XN6" id="37t-ob-CNF"/>

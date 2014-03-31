@@ -99,6 +99,10 @@
     if([self.symbol isEqualToString:@"diamond"]) {
         [self drawDiamondAtPoint:point];
     }
+    
+    if([self.symbol isEqualToString:@"oval"]) {
+        [self drawOvalAtPoint:point];
+    }
 }
 
 - (void)drawSquiggleAtPoint:(CGPoint)point
@@ -178,11 +182,57 @@
     [self strokeSymbolPath:path];
 }
 
+- (void)drawOvalAtPoint:(CGPoint)point
+{
+    NSUInteger width = self.bounds.size.width * SYMBOL_WIDTH;
+    NSUInteger height = self.bounds.size.height * SYMBOL_HEIGHT;
+    
+    CGFloat x = point.x;
+    CGFloat y = point.y;
+    
+    CGFloat xl = x - (width / 2); // X LEFT
+    CGFloat yt = y - (height / 2); // Y TOP
+    
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(xl, yt, width, height)
+                                                    cornerRadius:(height / 2)];
+    
+    [self fillSymbolPath:path];
+    [self strokeSymbolPath:path];
+}
+
+#define STRIPES_OFFSET 0.03
+
 -(void)fillSymbolPath:(UIBezierPath *)path
 {
     if ([self.shading isEqualToString:@"solid"]) {
         [[self getColor] setFill];
         [path fill];
+    }
+    
+    if ([self.shading isEqualToString:@"open"]) {
+        [[UIColor clearColor] setFill];
+        [path fill];
+    }
+    
+    if ([self.shading isEqualToString:@"striped"]) {
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        CGContextSaveGState(context);
+        [path addClip];
+        UIBezierPath *stripes = [[UIBezierPath alloc] init];
+        CGPoint start = self.bounds.origin;
+        CGPoint end = start;
+        CGFloat offset = self.bounds.size.height * STRIPES_OFFSET;
+        end.x += self.bounds.size.width;
+        for (int i = 0; i < 1 / STRIPES_OFFSET; i++) {
+            [stripes moveToPoint:start];
+            [stripes addLineToPoint:end];
+            start.y += offset;
+            end.y += offset;
+        }
+        stripes.lineWidth = self.bounds.size.width / 2 * SYMBOL_LINE_WIDTH;
+        [[self getColor] setStroke];
+        [stripes stroke];
+        CGContextRestoreGState(UIGraphicsGetCurrentContext());
     }
 }
 -(void)strokeSymbolPath:(UIBezierPath *)path

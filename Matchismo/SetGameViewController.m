@@ -18,7 +18,7 @@
 @property(weak, nonatomic) IBOutlet UIButton *resetButton;
 @property(weak, nonatomic) IBOutlet UILabel *historyLabel;
 @property(weak, nonatomic) IBOutlet UISlider *historySlider;
-@property (weak, nonatomic) IBOutlet SetCardView *setCardView;
+@property(weak, nonatomic) IBOutlet SetCardView *setCardView;
 
 @end
 
@@ -30,10 +30,15 @@
     self.deck = [[SetCardDeck alloc] init];
     self.numberOfMatchingCards = 3;
     
-    self.setCardView.symbol = @"diamond";
-    self.setCardView.shading = @"solid";
+    self.setCardView.symbol = @"oval";
+    self.setCardView.shading = @"striped";
     self.setCardView.color = @"red";
     self.setCardView.number = 2;
+    
+    self.initialCards = 12;
+    self.cardWidth = 50;
+    self.cardHeight = 50;
+    [self updateUI];
 }
 
 - (void)restartGame {
@@ -44,10 +49,11 @@
 // UI
 
 - (void)updateUI {
-    self.scoreLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Score: %d", nil), self.game.score];
-
-    [self updateButtonsUI];
-    [self updateHistoryLabelUI];
+//    self.scoreLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Score: %d", nil), self.game.score];
+//
+//    [self updateButtonsUI];
+//    [self updateHistoryLabelUI];
+    [super updateUI];
 }
 
 - (void)updateButtonsUI {
@@ -140,6 +146,22 @@
         HistoryViewController *destViewController = segue.destinationViewController;
         destViewController.game = [self game];
     }
+}
+
+-(UIView *)createCardViewForCard:(Card *)card
+{
+    if ([card isKindOfClass:[SetCard class]]) {
+        SetCardView *cardView = [[SetCardView alloc] init];
+        SetCard *setCard = (SetCard *)card;
+        cardView.number = setCard.number;
+        cardView.symbol = setCard.symbol;
+        cardView.shading = setCard.shading;
+        cardView.color = setCard.color;
+        
+        return cardView;
+    }
+    
+    return nil;
 }
 
 @end

@@ -23,9 +23,16 @@ static NSString * const DEFAULT_HISTORY_LABEL_TEXT = @"No actions performed";
 @property(strong, nonatomic) CardMatchingGame *game;
 @property(strong, nonatomic) Deck *deck;
 
+// Refactor
+@property(weak, nonatomic) IBOutlet UIView *gridView;
+@property(nonatomic) NSUInteger cardWidth;
+@property(nonatomic) NSUInteger cardHeight;
+@property(nonatomic) NSUInteger initialCards;
+
 - (CardMatchingGame *)game;
 - (NSArray *)cardButtons;
 - (NSAttributedString *)titleForCard:(Card *)card;
 - (UIImage *)backgroundImageForCard:(Card *)card;
 - (void)restartGame;
+- (void)updateUI;
 @end
