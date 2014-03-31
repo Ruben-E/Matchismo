@@ -15,6 +15,6 @@
 @property (nonatomic, strong) NSString *shading;
 @property (nonatomic) NSUInteger number;
 
-@property (nonatomic) BOOL faceUp;
+@property (nonatomic) BOOL chosen;
 
 @end

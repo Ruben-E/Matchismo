@@ -36,8 +36,8 @@
     self.setCardView.number = 2;
     
     self.initialCards = 12;
-    self.cardWidth = 50;
-    self.cardHeight = 50;
+    self.cardWidth = 60;
+    self.cardHeight = 60;
     [self updateUI];
 }
 
@@ -148,15 +148,20 @@
     }
 }
 
--(UIView *)createCardViewForCard:(Card *)card
+-(UIView *)getCardView:(UIView *)view forCard:(Card *)card
 {
     if ([card isKindOfClass:[SetCard class]]) {
-        SetCardView *cardView = [[SetCardView alloc] init];
+        SetCardView *cardView = (SetCardView *)view;
+        if (!cardView) {
+            cardView = [[SetCardView alloc] init];
+        }
+        
         SetCard *setCard = (SetCard *)card;
         cardView.number = setCard.number;
         cardView.symbol = setCard.symbol;
         cardView.shading = setCard.shading;
         cardView.color = setCard.color;
+        cardView.chosen = setCard.chosen;
         
         return cardView;
     }

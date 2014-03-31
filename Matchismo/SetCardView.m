@@ -36,9 +36,9 @@
     [self setNeedsDisplay];
 }
 
-- (void)setFaceUp:(BOOL)faceUp
+- (void)setChosen:(BOOL)chosen
 {
-    _faceUp = faceUp;
+    _chosen = chosen;
     [self setNeedsDisplay];
 }
 
@@ -63,7 +63,13 @@
     [[UIColor whiteColor] setFill];
     UIRectFill(self.bounds);
     
-    [[UIColor blackColor] setStroke];
+    if (self.chosen) {
+        [[UIColor blueColor] setStroke];
+        roundedRect.lineWidth = self.bounds.size.width * 0.070;
+    } else {
+        [[UIColor blackColor] setStroke];
+        
+    }
     [roundedRect stroke];
     
     [self drawSymbols];

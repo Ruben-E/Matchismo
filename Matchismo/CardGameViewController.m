@@ -45,7 +45,7 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
 }
 
 - (CardMatchingGame *)createGame {
-    return [[CardMatchingGame alloc] initWithCardGameCount:[self.cardButtons count] usingDeck:[self deck] numberOfMatchingCards:[self numberOfMatchingCards]];
+    return [[CardMatchingGame alloc] initWithCardGameCount:[self initialCards] usingDeck:[self deck] numberOfMatchingCards:[self numberOfMatchingCards]];
 }
 
 -(UIView *)cardViewForIndex:(NSUInteger) index
@@ -54,7 +54,7 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
         id obj = [self.cardViews objectAtIndex:i];
         if ([obj isKindOfClass:[UIView class]]) {
             UIView *view = (UIView *)obj;
-            if (view.tag == i) {
+            if (view.tag == index) {
                 return view;
             }
         }
@@ -63,9 +63,33 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
     return nil;
 }
 
--(UIView *)createCardViewForCard:(Card *)card // Abstract
+-(UIView *)getCardView:(UIView *)view forCard:(Card *)card // Abstract
 {
     return nil;
+}
+
+- (void)touchCard:(UITapGestureRecognizer *)gesture
+{
+    if (gesture.state == UIGestureRecognizerStateEnded) {
+        Card *card = [self.game cardAtIndex:gesture.view.tag];
+        if (!card.matched) {
+            if (self.cardsShouldFlip) {
+                [UIView transitionWithView:gesture.view
+                                  duration:0.5
+                                   options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+                                       card.chosen = !card.chosen;
+                                       [self getCardView:gesture.view forCard:card];
+                                   } completion:^(BOOL finished) {
+                                       card.chosen = !card.chosen;
+                                       [self.game chooseCardAtIndex:gesture.view.tag];
+                                       [self updateUI];
+                                   }];
+            } else {
+                [self.game chooseCardAtIndex:gesture.view.tag];
+                [self updateUI];
+            }
+        }
+    }
 }
 
 - (void)updateUI
@@ -74,14 +98,22 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
         Card *card = [self.game cardAtIndex:i];
         UIView *cardView = [self cardViewForIndex:i];
         if (!cardView) {
-            cardView = [self createCardViewForCard:card];
+            cardView = [self getCardView:nil forCard:card];
+            cardView.backgroundColor = [UIColor clearColor];
             cardView.tag = i;
+            
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                  action:@selector(touchCard:)];
+            [cardView addGestureRecognizer:tap];
             
             [self.cardViews addObject:cardView];
         }
         if (![card isMatched]) {
+            cardView = [self getCardView:cardView forCard:card];
+            
             CGRect frame = [self.grid frameOfCellAtRow:i / self.grid.columnCount
                                               inColumn:i % self.grid.columnCount];
+            frame = CGRectInset(frame, frame.size.width * 0.05, frame.size.height * 0.05);
             cardView.frame = frame;
             
             [self.gridView addSubview:cardView];
@@ -131,7 +163,7 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
 
 -(NSMutableArray *)cardViews
 {
-    if (_cardViews) {
+    if (!_cardViews) {
         _cardViews = [[NSMutableArray alloc] init];
     }
     return _cardViews;
