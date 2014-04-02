@@ -68,9 +68,6 @@ static NSString *const DEFAULT_HISTORY_LABEL_TEXT = @"No actions performed";
     [self.historyLabel setText:newText];
 }
 
-- (IBAction)backButtonPressed:(UIBarButtonItem *)sender {
-}
-
 - (IBAction)historySliderChanged:(UISlider *)sender {
     NSLog(@"SliderValue ... %d", (int) [sender value]);
 
