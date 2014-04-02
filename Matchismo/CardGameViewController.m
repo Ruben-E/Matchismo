@@ -32,12 +32,7 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
     return [UIImage imageNamed:card.isChosen ? @"cardfront" : @"cardback"];
 }
 
-- (void)restartGame {
-    self.deck = [self createDeck];
-    self.game = [self createGame];
-    [self resetCardViews];
-    [self updateUI];
-}
+#pragma mark - Creators
 
 - (Deck *)createDeck {
     Class deckClass = [self.deck class];
@@ -62,20 +57,26 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
 
 }
 
-- (void)recalculateGrid {
-    _grid = [self createGrid];
+#pragma mark - Helpers
+
+- (void)restartGame {
+    self.deck = [self createDeck];
+    self.game = [self createGame];
+    [self resetCardViews];
+    [self updateUI];
 }
 
-- (void)resetCardViews {
-    for (NSUInteger i = 0; i < [self.cardViews count]; i++) {
-        id obj = [self.cardViews objectAtIndex:i];
-        if ([obj isKindOfClass:[UIView class]]) {
-            UIView *view = (UIView *) obj;
-            [view removeFromSuperview];
-        }
+- (BOOL)frame:(CGRect)frame1 matchesFrame:(CGRect)frame2 {
+    if (frame1.size.width == frame2.size.width && frame1.size.height == frame2.size.height) {
+        return YES;
     }
+    
+    return NO;
+}
 
-    self.cardViews = [[NSMutableArray alloc] init];
+- (UIView *)getCardView:(UIView *)view forCard:(Card *)card // Abstract
+{
+    return nil;
 }
 
 - (UIView *)cardViewForIndex:(NSUInteger)index {
@@ -88,14 +89,27 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
             }
         }
     }
-
+    
     return nil;
 }
 
-- (UIView *)getCardView:(UIView *)view forCard:(Card *)card // Abstract
-{
-    return nil;
+- (void)resetCardViews {
+    for (NSUInteger i = 0; i < [self.cardViews count]; i++) {
+        id obj = [self.cardViews objectAtIndex:i];
+        if ([obj isKindOfClass:[UIView class]]) {
+            UIView *view = (UIView *) obj;
+            [view removeFromSuperview];
+        }
+    }
+    
+    self.cardViews = [[NSMutableArray alloc] init];
 }
+
+- (void)recalculateGrid {
+    _grid = [self createGrid];
+}
+
+#pragma mark - View handlers
 
 - (void)touchCard:(UITapGestureRecognizer *)gesture {
     if (gesture.state == UIGestureRecognizerStateEnded) {
@@ -119,6 +133,13 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
         }
     }
 }
+
+- (IBAction)touchRedealButton:(UIButton *)sender {
+    [self restartGame];
+    [self updateUI];
+}
+
+#pragma mark - UI Updates
 
 #define FLY_OUT_ANIMATION_DURATION 1.2
 #define FLY_IN_ANIMATION_DURATION 1.2
@@ -202,24 +223,11 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
     }
 }
 
-- (BOOL)frame:(CGRect)frame1 matchesFrame:(CGRect)frame2 {
-    if (frame1.size.width == frame2.size.width && frame1.size.height == frame2.size.height) {
-        return YES;
-    }
-
-    return NO;
-}
-
 - (void)updateScoreLabel {
     self.scoreLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Score: %d", nil), self.game.score];
 }
 
-- (IBAction)touchRedealButton:(UIButton *)sender {
-    [self restartGame];
-    [self updateUI];
-}
-
-// Setters / Getters
+#pragma mark - Getters / Setters
 
 - (NSUInteger)numberOfMatchingCards {
     if (!_numberOfMatchingCards) {

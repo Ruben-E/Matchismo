@@ -43,55 +43,6 @@
     [self updateUI];
 }
 
-//- (void)updateButtonsUI {
-//    for (UIButton *cardButton in self.cardButtons) {
-//        int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
-//        Card *card = [self.game cardAtIndex:cardButtonIndex];
-//        [cardButton setAttributedTitle:[self titleForCard:card] forState:UIControlStateNormal];
-//        [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
-//        cardButton.enabled = !card.isMatched;
-//    }
-//}
-//
-//- (void)updateHistoryLabelUI {
-//    History *latestHistory = [self.game.histories lastObject];
-//    if (latestHistory) {
-//        NSUInteger latestHistoryId = [self.game.histories indexOfObject:latestHistory];
-//
-//        [self updateHistoryLabelUIForHistoryIndex:latestHistoryId];
-//    } else {
-//        [self updateHistoryLabelUIForHistoryIndex:0];
-//    }
-//}
-//
-//- (void)updateHistoryLabelUIForHistoryIndex:(NSUInteger)index {
-//    NSString *newText = @"";
-//
-//    if ([self.game.histories count] > index) {
-//        History *history = [self.game.histories objectAtIndex:index];
-//
-//        switch (history.action) {
-//            case toFront:
-//                newText = [NSString stringWithFormat:@"%@", [[[history.cards firstObject] contents] string]];
-//                break;
-//            case toBack:
-//                newText = NSLocalizedString(@"Card flipped back", @"Kaart omgedraaid");
-//                break;
-//            case matched:
-//                newText = [NSString stringWithFormat:NSLocalizedString(@"Matched %@ for %d points", nil), [Card contentsForCards:history.cards], history.resultScore];
-//                break;
-//            case notMatched:
-//                newText = [NSString stringWithFormat:NSLocalizedString(@"%@ don't match! %d points penalty", nil), [Card contentsForCards:history.cards], history.resultScore];
-//                break;
-//        }
-//    } else {
-//        newText = [NSString stringWithFormat:DEFAULT_HISTORY_LABEL_TEXT];
-//    }
-//
-//
-//    [self.historyLabel setText:newText];
-//}
-
 // Handlers
 
 - (IBAction)touchDealMoreCardsButton:(UIButton *)sender {
