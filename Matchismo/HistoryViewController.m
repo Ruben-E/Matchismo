@@ -9,17 +9,16 @@
 #import "HistoryViewController.h"
 #import "Card.h"
 
-static NSString * const DEFAULT_HISTORY_LABEL_TEXT = @"No actions performed";
+static NSString *const DEFAULT_HISTORY_LABEL_TEXT = @"No actions performed";
 
 @interface HistoryViewController ()
-@property (weak, nonatomic) IBOutlet UITextView *historyLabel;
+@property(weak, nonatomic) IBOutlet UITextView *historyLabel;
 @property(weak, nonatomic) IBOutlet UISlider *historySlider;
 @end
 
 @implementation HistoryViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     [self updateHistorySliderUI];
     [self updateHistoryLabelUIForHistoryIndex:([self.game.histories count] - 1)];

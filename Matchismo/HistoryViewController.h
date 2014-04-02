@@ -10,5 +10,5 @@
 #import "CardMatchingGame.h"
 
 @interface HistoryViewController : UIViewController
-@property (strong, nonatomic) CardMatchingGame *game;
+@property(strong, nonatomic) CardMatchingGame *game;
 @end

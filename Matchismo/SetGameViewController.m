@@ -19,7 +19,7 @@
 @property(weak, nonatomic) IBOutlet UILabel *historyLabel;
 @property(weak, nonatomic) IBOutlet UISlider *historySlider;
 @property(weak, nonatomic) IBOutlet SetCardView *setCardView;
-@property (weak, nonatomic) IBOutlet UIButton *dealMoreCardsButton;
+@property(weak, nonatomic) IBOutlet UIButton *dealMoreCardsButton;
 
 @end
 
@@ -30,13 +30,13 @@
 
     self.deck = [[SetCardDeck alloc] init];
     self.numberOfMatchingCards = 3;
-    
+
     self.setCardView.symbol = @"oval";
     self.setCardView.shading = @"striped";
     self.setCardView.color = @"red";
     self.setCardView.number = 2;
     self.removeMatchedCards = YES;
-    
+
     self.initialCards = 12;
     self.cardWidth = 60;
     self.cardHeight = 80;
@@ -98,7 +98,7 @@
     for (int i = 0; i < 3; i++) {
         [self.game dealCard];
     }
-    
+
     [self updateUI];
 }
 
@@ -113,24 +113,23 @@
     }
 }
 
--(UIView *)getCardView:(UIView *)view forCard:(Card *)card
-{
+- (UIView *)getCardView:(UIView *)view forCard:(Card *)card {
     if ([card isKindOfClass:[SetCard class]]) {
-        SetCardView *cardView = (SetCardView *)view;
+        SetCardView *cardView = (SetCardView *) view;
         if (!cardView) {
             cardView = [[SetCardView alloc] init];
         }
-        
-        SetCard *setCard = (SetCard *)card;
+
+        SetCard *setCard = (SetCard *) card;
         cardView.number = setCard.number;
         cardView.symbol = setCard.symbol;
         cardView.shading = setCard.shading;
         cardView.color = setCard.color;
         cardView.chosen = setCard.chosen;
-        
+
         return cardView;
     }
-    
+
     return nil;
 }
 

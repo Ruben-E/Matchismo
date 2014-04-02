@@ -11,7 +11,7 @@
 #import "Deck.h"
 #import "CardMatchingGame.h"
 
-static NSString * const DEFAULT_HISTORY_LABEL_TEXT = @"No actions performed";
+static NSString *const DEFAULT_HISTORY_LABEL_TEXT = @"No actions performed";
 
 @interface CardGameViewController : UIViewController
 
@@ -34,9 +34,14 @@ static NSString * const DEFAULT_HISTORY_LABEL_TEXT = @"No actions performed";
 @property(nonatomic) BOOL removeMatchedCards;
 
 - (CardMatchingGame *)game;
+
 - (NSArray *)cardButtons;
+
 - (NSAttributedString *)titleForCard:(Card *)card;
+
 - (UIImage *)backgroundImageForCard:(Card *)card;
+
 - (void)restartGame;
+
 - (void)updateUI;
 @end
