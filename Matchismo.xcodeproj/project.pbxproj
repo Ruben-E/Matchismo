@@ -10,6 +10,7 @@
 		1109E0F018E6EA0E009891E3 /* SetCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1109E0EF18E6EA0E009891E3 /* SetCardView.m */; };
 		1109E0F318E9AA57009891E3 /* Grid.m in Sources */ = {isa = PBXBuildFile; fileRef = 1109E0F218E9AA57009891E3 /* Grid.m */; };
 		110DA7E318D0A9710047D4F0 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 110DA7E218D0A9710047D4F0 /* HistoryViewController.m */; };
+		11A51F4D18EC1D0000BEDA01 /* PlayingCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A51F4C18EC1D0000BEDA01 /* PlayingCardView.m */; };
 		11DBFD0018C86FC600136A62 /* SetGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DBFCFF18C86FC600136A62 /* SetGameViewController.m */; };
 		11DBFD0318C87F3300136A62 /* PlayingCardGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DBFD0218C87F3300136A62 /* PlayingCardGameViewController.m */; };
 		11DBFD0618C8866A00136A62 /* SetCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DBFD0518C8866A00136A62 /* SetCard.m */; };
@@ -54,6 +55,8 @@
 		1109E0F218E9AA57009891E3 /* Grid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Grid.m; sourceTree = "<group>"; };
 		110DA7E118D0A9710047D4F0 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
 		110DA7E218D0A9710047D4F0 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
+		11A51F4B18EC1D0000BEDA01 /* PlayingCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayingCardView.h; sourceTree = "<group>"; };
+		11A51F4C18EC1D0000BEDA01 /* PlayingCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayingCardView.m; sourceTree = "<group>"; };
 		11DBFCFE18C86FC600136A62 /* SetGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetGameViewController.h; sourceTree = "<group>"; };
 		11DBFCFF18C86FC600136A62 /* SetGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetGameViewController.m; sourceTree = "<group>"; };
 		11DBFD0118C87F3300136A62 /* PlayingCardGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayingCardGameViewController.h; path = ../PlayingCardGameViewController.h; sourceTree = "<group>"; };
@@ -156,12 +159,14 @@
 				110DA7E218D0A9710047D4F0 /* HistoryViewController.m */,
 				11DBFCFE18C86FC600136A62 /* SetGameViewController.h */,
 				11DBFCFF18C86FC600136A62 /* SetGameViewController.m */,
+				11A51F4B18EC1D0000BEDA01 /* PlayingCardView.h */,
+				11A51F4C18EC1D0000BEDA01 /* PlayingCardView.m */,
 				11DBFD0118C87F3300136A62 /* PlayingCardGameViewController.h */,
 				11DBFD0218C87F3300136A62 /* PlayingCardGameViewController.m */,
-				F07D8FA81FE405ABCC6299BD /* Model */,
-				F07D89D8BAF2A376BC014C10 /* Localizable.strings */,
 				1109E0EE18E6EA0E009891E3 /* SetCardView.h */,
 				1109E0EF18E6EA0E009891E3 /* SetCardView.m */,
+				F07D8FA81FE405ABCC6299BD /* Model */,
+				F07D89D8BAF2A376BC014C10 /* Localizable.strings */,
 			);
 			path = Matchismo;
 			sourceTree = "<group>";
@@ -343,6 +348,7 @@
 				F07D800B0E830444B5332E98 /* PlayingCardDeck.m in Sources */,
 				F07D86622DC6BCCDD1C9CA5D /* PlayingCard.m in Sources */,
 				1109E0F018E6EA0E009891E3 /* SetCardView.m in Sources */,
+				11A51F4D18EC1D0000BEDA01 /* PlayingCardView.m in Sources */,
 				11DBFD0918C8868500136A62 /* SetCardDeck.m in Sources */,
 				F07D84E7C797A8180876A33C /* CardGameAppDelegate.m in Sources */,
 				F07D8A67C5A589871FF14312 /* CardMatchingGame.m in Sources */,
