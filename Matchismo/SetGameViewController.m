@@ -30,10 +30,6 @@
 
     self.deck = [[SetCardDeck alloc] init];
     self.numberOfMatchingCards = 3;
-
-    self.setCardView.symbol = @"oval";
-    self.setCardView.shading = @"striped";
-    self.setCardView.color = @"red";
     self.setCardView.number = 2;
     self.removeMatchedCards = YES;
 
@@ -51,10 +47,6 @@
     }
 
     [self updateUI];
-}
-
-- (IBAction)touchResetButton:(UIButton *)sender {
-    [self restartGame];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

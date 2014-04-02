@@ -70,7 +70,7 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
     if (frame1.size.width == frame2.size.width && frame1.size.height == frame2.size.height) {
         return YES;
     }
-    
+
     return NO;
 }
 
@@ -89,7 +89,7 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
             }
         }
     }
-    
+
     return nil;
 }
 
@@ -101,7 +101,7 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
             [view removeFromSuperview];
         }
     }
-    
+
     self.cardViews = [[NSMutableArray alloc] init];
 }
 
@@ -165,20 +165,20 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
             [newViews addObject:cardView];
             [self.cardViews addObject:cardView];
         }
-        if (![card isMatched]) {
-            cardView = [self getCardView:cardView forCard:card];
+        //if (![card isMatched]) {
+        cardView = [self getCardView:cardView forCard:card];
 
-            CGRect frame = [self.grid frameOfCellAtRow:cardView.tag / self.grid.columnCount
-                                              inColumn:cardView.tag % self.grid.columnCount];
-            frame = CGRectInset(frame, frame.size.width * 0.05, frame.size.height * 0.05);
+        CGRect frame = [self.grid frameOfCellAtRow:cardView.tag / self.grid.columnCount
+                                          inColumn:cardView.tag % self.grid.columnCount];
+        frame = CGRectInset(frame, frame.size.width * 0.05, frame.size.height * 0.05);
 
-            if (![self frame:cardView.frame matchesFrame:frame]) {
-                [UIView animateWithDuration:0.5
-                                 animations:^{
-                                     cardView.frame = frame;
-                                 } completion:NULL];
-            }
-        } else {
+        if (![self frame:cardView.frame matchesFrame:frame]) {
+            [UIView animateWithDuration:0.5
+                             animations:^{
+                                 cardView.frame = frame;
+                             } completion:NULL];
+        }
+        if ([card isMatched]) {
             if (self.removeMatchedCards) {
                 [self.cardViews removeObject:cardView];
                 [UIView animateWithDuration:FLY_OUT_ANIMATION_DURATION
