@@ -35,6 +35,8 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
 - (void)restartGame {
     self.deck = [self createDeck];
     self.game = [self createGame];
+    [self resetCardViews];
+    [self updateUI];
 }
 
 - (Deck *)createDeck {
@@ -46,6 +48,19 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
 
 - (CardMatchingGame *)createGame {
     return [[CardMatchingGame alloc] initWithCardGameCount:[self initialCards] usingDeck:[self deck] numberOfMatchingCards:[self numberOfMatchingCards]];
+}
+
+- (void)resetCardViews
+{
+    for (NSUInteger i = 0; i < [self.cardViews count]; i++) {
+        id obj = [self.cardViews objectAtIndex:i];
+        if ([obj isKindOfClass:[UIView class]]) {
+            UIView *view = (UIView *)obj;
+            [view removeFromSuperview];
+        }
+    }
+    
+    self.cardViews = [[NSMutableArray alloc] init];
 }
 
 -(UIView *)cardViewForIndex:(NSUInteger) index
@@ -76,7 +91,7 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
             if (self.cardsShouldFlip) {
                 [UIView transitionWithView:gesture.view
                                   duration:0.5
-                                   options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+                                   options:UIViewAnimationOptionTransitionFlipFromTop animations:^{
                                        card.chosen = !card.chosen;
                                        [self getCardView:gesture.view forCard:card];
                                    } completion:^(BOOL finished) {
@@ -92,8 +107,13 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
     }
 }
 
+#define FLY_OUT_ANIMATION_DURATION 1.2
+#define FLY_IN_ANIMATION_DURATION 1.2
+
 - (void)updateUI
 {
+    NSMutableArray *newViews = [[NSMutableArray alloc] init];
+    
     for (NSUInteger i = 0; i < [self.game.cards count]; i++) {
         Card *card = [self.game cardAtIndex:i];
         UIView *cardView = [self cardViewForIndex:i];
@@ -106,18 +126,60 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
                                                                                   action:@selector(touchCard:)];
             [cardView addGestureRecognizer:tap];
             
+            [newViews addObject:cardView];
             [self.cardViews addObject:cardView];
         }
         if (![card isMatched]) {
             cardView = [self getCardView:cardView forCard:card];
             
-            CGRect frame = [self.grid frameOfCellAtRow:i / self.grid.columnCount
-                                              inColumn:i % self.grid.columnCount];
-            frame = CGRectInset(frame, frame.size.width * 0.05, frame.size.height * 0.05);
-            cardView.frame = frame;
-            
-            [self.gridView addSubview:cardView];
+//            CGRect frame = [self.grid frameOfCellAtRow:i / self.grid.columnCount
+//                                              inColumn:i % self.grid.columnCount];
+//            frame = CGRectInset(frame, frame.size.width * 0.05, frame.size.height * 0.05);
+//            cardView.frame = frame;
+//            
+ //           [self.gridView addSubview:cardView];
+        } else {
+            if (self.removeMatchedCards) {
+                [self.cardViews removeObject:cardView];
+                [UIView animateWithDuration:FLY_OUT_ANIMATION_DURATION
+                                 animations:^{
+                                     cardView.frame = CGRectMake(0.0 - cardView.bounds.size.width, self.gridView.superview.bounds.size.height  - cardView.bounds.size.height, cardView.bounds.size.width, cardView.bounds.size.height);
+                                 } completion:^(BOOL finished) {
+                                     [cardView removeFromSuperview];
+                                 }];
+            } else {
+                if (card.isMatched) {
+                    cardView.alpha = 0.6;
+                } else {
+                    cardView.alpha = 1.0;
+                }
+            }
         }
+    }
+    
+//  FLY IN ANIMATIE
+
+    for (NSUInteger viewIndex = 0; viewIndex < [newViews count]; viewIndex++) {
+        UIView *cardView = (UIView *)newViews[viewIndex];
+        [self.gridView addSubview:cardView];
+        
+        CGPoint differenceBetweenSuperview = [self.gridView.superview convertPoint:self.gridView.frame.origin toView:nil];
+        
+        cardView.frame = CGRectMake(0.0 - differenceBetweenSuperview.x - cardView.bounds.size.width,
+                                    0.0 - differenceBetweenSuperview.y - cardView.bounds.size.height,
+                                    cardView.bounds.size.width,
+                                    cardView.bounds.size.height);
+        
+        CGRect frame = [self.grid frameOfCellAtRow:cardView.tag / self.grid.columnCount
+                                          inColumn:cardView.tag % self.grid.columnCount];
+        frame = CGRectInset(frame, frame.size.width * 0.05, frame.size.height * 0.05);
+        
+        [UIView animateWithDuration:0.5
+                              delay:1.5 * viewIndex / [self.cardViews count]
+                            options:UIViewAnimationOptionCurveEaseInOut
+                         animations:^{
+                             cardView.frame = frame;
+                         } completion:NULL];
     }
 }
 

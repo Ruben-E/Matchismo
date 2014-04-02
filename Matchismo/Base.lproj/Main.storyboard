@@ -554,7 +554,7 @@
                                     <action selector="touchResetButton:" destination="NO0-Se-zYw" eventType="touchUpInside" id="ZVA-ip-xQr"/>
                                 </connections>
                             </button>
-                            <view opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5bF-Ch-7BR">
+                            <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5bF-Ch-7BR">
                                 <rect key="frame" x="20" y="119" width="280" height="268"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </view>

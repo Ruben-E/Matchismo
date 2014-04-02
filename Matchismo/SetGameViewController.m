@@ -34,6 +34,7 @@
     self.setCardView.shading = @"striped";
     self.setCardView.color = @"red";
     self.setCardView.number = 2;
+    self.removeMatchedCards = YES;
     
     self.initialCards = 12;
     self.cardWidth = 60;

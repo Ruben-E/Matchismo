@@ -46,6 +46,7 @@
 
 #define CORNER_FONT_STANDARD_HEIGHT 180.0
 #define CORNER_RADIUS 12.0
+#define LINE_WIDTH 0.07;
 
 - (CGFloat)cornerScaleFactor { return self.bounds.size.height / CORNER_FONT_STANDARD_HEIGHT; }
 - (CGFloat)cornerRadius { return CORNER_RADIUS * [self cornerScaleFactor]; }
@@ -65,7 +66,7 @@
     
     if (self.chosen) {
         [[UIColor blueColor] setStroke];
-        roundedRect.lineWidth = self.bounds.size.width * 0.070;
+        roundedRect.lineWidth = self.bounds.size.width * LINE_WIDTH;
     } else {
         [[UIColor blackColor] setStroke];
         

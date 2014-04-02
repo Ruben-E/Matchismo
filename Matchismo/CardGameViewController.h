@@ -29,6 +29,7 @@ static NSString * const DEFAULT_HISTORY_LABEL_TEXT = @"No actions performed";
 @property(nonatomic) NSUInteger cardHeight;
 @property(nonatomic) NSUInteger initialCards;
 @property(nonatomic) BOOL cardsShouldFlip;
+@property(nonatomic) BOOL removeMatchedCards;
 
 - (CardMatchingGame *)game;
 - (NSArray *)cardButtons;
