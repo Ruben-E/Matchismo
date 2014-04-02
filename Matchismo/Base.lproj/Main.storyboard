@@ -165,6 +165,11 @@
                             <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5bF-Ch-7BR">
                                 <rect key="frame" x="20" y="119" width="280" height="268"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="zSg-64-NTV" appends="YES" id="cwR-qU-eDY"/>
+                                    <outletCollection property="gestureRecognizers" destination="e4k-dP-53F" appends="YES" id="OcE-yQ-YLQ"/>
+                                </connections>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KtK-m1-XN6">
                                 <rect key="frame" x="20" y="83" width="145" height="28"/>
@@ -203,6 +208,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="swe-DQ-oYL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="zSg-64-NTV">
+                    <connections>
+                        <action selector="pinchGesture:" destination="NO0-Se-zYw" id="SfS-3x-tIg"/>
+                    </connections>
+                </pinchGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="e4k-dP-53F">
+                    <connections>
+                        <action selector="movePile:" destination="NO0-Se-zYw" id="Qat-eQ-nuo"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1552" y="436"/>
         </scene>
@@ -270,6 +285,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="iKS-wq-rNp"/>
+        <segue reference="J4K-VK-4dh"/>
     </inferredMetricsTieBreakers>
 </document>

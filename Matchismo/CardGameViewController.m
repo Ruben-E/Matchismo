@@ -18,19 +18,10 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
 @interface CardGameViewController ()
 @property(strong, nonatomic) NSMutableArray *cardViews; // Of CardView
 @property(strong, nonatomic) Grid *grid;
+@property(strong, nonatomic) UIDynamicAnimator *pileAnimation;
 @end
 
 @implementation CardGameViewController
-
-// Helpers
-
-- (NSAttributedString *)titleForCard:(Card *)card {
-    return card.isChosen ? card.contents : [[NSAttributedString alloc] initWithString:@""];
-}
-
-- (UIImage *)backgroundImageForCard:(Card *)card {
-    return [UIImage imageNamed:card.isChosen ? @"cardfront" : @"cardback"];
-}
 
 #pragma mark - Creators
 
@@ -62,6 +53,7 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
 - (void)restartGame {
     self.deck = [self createDeck];
     self.game = [self createGame];
+    self.pileAnimation = nil;
     [self resetCardViews];
     [self updateUI];
 }
@@ -109,25 +101,123 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
     _grid = [self createGrid];
 }
 
+- (CGRect)getFrameForCardView:(UIView *)cardView
+{
+    CGRect frame = [self.grid frameOfCellAtRow:cardView.tag / self.grid.columnCount
+                                      inColumn:cardView.tag % self.grid.columnCount];
+    return CGRectInset(frame, frame.size.width * 0.05, frame.size.height * 0.05);
+}
+
+- (void)moveCardViewsToOriginalPosition:(NSArray *)cardViews
+{
+    for (NSUInteger i = 0; i < [cardViews count]; i++) {
+        UIView *cardView = (UIView *) cardViews[i];
+        CGRect frame = [self getFrameForCardView:cardView];
+
+        [UIView animateWithDuration:0.5
+                              delay:1.5 * i / [self.cardViews count]
+                            options:UIViewAnimationOptionCurveEaseInOut
+                         animations:^{
+                             cardView.frame = frame;
+                         } completion:NULL];
+    }
+}
+
 #pragma mark - View handlers
+- (IBAction)pinchGesture:(UIPinchGestureRecognizer *)sender {
+    if ((sender.state == UIGestureRecognizerStateChanged) ||
+            (sender.state == UIGestureRecognizerStateEnded)) {
+        CGPoint center = [sender locationInView:self.gridView];
+
+        if (!self.pileAnimation) {
+            self.pileAnimation = [[UIDynamicAnimator alloc] initWithReferenceView:self.gridView];
+            UIDynamicItemBehavior *item = [[UIDynamicItemBehavior alloc] initWithItems:self.cardViews];
+            item.resistance = 40.0;
+            [self.pileAnimation addBehavior:item];
+
+            for (NSUInteger i = 0; i < self.cardViews.count; i++) {
+                UIView *cardView = self.cardViews[i];
+                if (cardView) {
+                    CGPoint point = CGPointMake(center.x, center.y);
+                    point.x += i;
+                    point.y += i;
+                    UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:cardView snapToPoint:point];
+                    [self.pileAnimation addBehavior:snap];
+                }
+            }
+        }
+    }
+}
+
+- (IBAction)movePile:(UIPanGestureRecognizer *)sender {
+    if (self.pileAnimation) {
+        CGPoint gesturePoint = [sender locationInView:self.gridView];
+        if (sender.state == UIGestureRecognizerStateBegan) {
+            for (NSUInteger i = 0; i < self.cardViews.count; i++) {
+                UIView *cardView = self.cardViews[i];
+                if (cardView) {
+                    UIAttachmentBehavior *attachment = [[UIAttachmentBehavior alloc] initWithItem:cardView
+                                                                                 attachedToAnchor:gesturePoint];
+                    [self.pileAnimation addBehavior:attachment];
+                }
+            }
+            for (UIDynamicBehavior *behaviour in self.pileAnimation.behaviors) {
+                if ([behaviour isKindOfClass:[UISnapBehavior class]]) {
+                    [self.pileAnimation removeBehavior:behaviour];
+                }
+            }
+        } else if (sender.state == UIGestureRecognizerStateChanged) {
+            for (UIDynamicBehavior *behaviour in self.pileAnimation.behaviors) {
+                if ([behaviour isKindOfClass:[UIAttachmentBehavior class]]) {
+                    ((UIAttachmentBehavior *) behaviour).anchorPoint = gesturePoint;
+                }
+            }
+        } else if (sender.state == UIGestureRecognizerStateEnded) {
+            for (UIDynamicBehavior *behaviour in self.pileAnimation.behaviors) {
+                if ([behaviour isKindOfClass:[UIAttachmentBehavior class]]) {
+                    [self.pileAnimation removeBehavior:behaviour];
+                }
+            }
+            for (NSUInteger i = 0; i < self.cardViews.count; i++) {
+                UIView *cardView = self.cardViews[i];
+                if (cardView) {
+                    CGPoint point = CGPointMake(gesturePoint.x, gesturePoint.y);
+                    point.x += i;
+                    point.y += i;
+                    UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:cardView snapToPoint:point];
+                    [self.pileAnimation addBehavior:snap];
+                }
+            }
+        }
+    }
+}
 
 - (void)touchCard:(UITapGestureRecognizer *)gesture {
     if (gesture.state == UIGestureRecognizerStateEnded) {
         Card *card = [self.game cardAtIndex:gesture.view.tag];
-        if (!card.matched) {
-            if (self.cardsShouldFlip) {
-                [UIView transitionWithView:gesture.view
-                                  duration:0.5
-                                   options:UIViewAnimationOptionTransitionFlipFromTop animations:^{
-                    card.chosen = !card.chosen;
-                    [self getCardView:gesture.view forCard:card];
-                }               completion:^(BOOL finished) {
-                    card.chosen = !card.chosen;
-                    [self.game chooseCardAtIndex:gesture.view.tag];
-                    [self updateUI];
-                }];
+        if (card) {
+            if (!self.pileAnimation) {
+                if (!card.matched) {
+                    if (self.cardsShouldFlip) {
+                        [UIView transitionWithView:gesture.view
+                                          duration:0.5
+                                           options:UIViewAnimationOptionTransitionFlipFromTop animations:^{
+                            card.chosen = !card.chosen;
+                            [self getCardView:gesture.view forCard:card];
+                        }               completion:^(BOOL finished) {
+                            card.chosen = !card.chosen;
+                            [self.game chooseCardAtIndex:gesture.view.tag];
+                            [self updateUI];
+                        }];
+                    } else {
+                        [self.game chooseCardAtIndex:gesture.view.tag];
+                        [self updateUI];
+                    }
+                }
             } else {
-                [self.game chooseCardAtIndex:gesture.view.tag];
+                self.pileAnimation = nil;
+
+                [self moveCardViewsToOriginalPosition:self.cardViews];
                 [self updateUI];
             }
         }
@@ -165,12 +255,10 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
             [newViews addObject:cardView];
             [self.cardViews addObject:cardView];
         }
-        //if (![card isMatched]) {
+
         cardView = [self getCardView:cardView forCard:card];
 
-        CGRect frame = [self.grid frameOfCellAtRow:cardView.tag / self.grid.columnCount
-                                          inColumn:cardView.tag % self.grid.columnCount];
-        frame = CGRectInset(frame, frame.size.width * 0.05, frame.size.height * 0.05);
+        CGRect frame = [self getFrameForCardView:cardView];
 
         if (![self frame:cardView.frame matchesFrame:frame]) {
             [UIView animateWithDuration:0.5
@@ -197,7 +285,7 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
         }
     }
 
-//  FLY IN ANIMATIE
+//  FLY IN ANIMATION
 
     for (NSUInteger viewIndex = 0; viewIndex < [newViews count]; viewIndex++) {
         UIView *cardView = (UIView *) newViews[viewIndex];
@@ -210,9 +298,7 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
                 cardView.bounds.size.width,
                 cardView.bounds.size.height);
 
-        CGRect frame = [self.grid frameOfCellAtRow:cardView.tag / self.grid.columnCount
-                                          inColumn:cardView.tag % self.grid.columnCount];
-        frame = CGRectInset(frame, frame.size.width * 0.05, frame.size.height * 0.05);
+        CGRect frame = [self getFrameForCardView:cardView];
 
         [UIView animateWithDuration:0.5
                               delay:1.5 * viewIndex / [self.cardViews count]
@@ -246,14 +332,6 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
     return _game;
 }
 
-- (NSArray *)cardButtons {
-    if (!_cardButtons) {
-        _cardButtons = [[NSArray alloc] init];
-    }
-
-    return _cardButtons;
-}
-
 - (Grid *)grid {
     if (!_grid) {
         _grid = [self createGrid];
@@ -267,6 +345,11 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
         _cardViews = [[NSMutableArray alloc] init];
     }
     return _cardViews;
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [self updateUI];
 }
 
 
