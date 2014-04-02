@@ -10,6 +10,7 @@
 @interface CardMatchingGame ()
 @property(nonatomic, readwrite) NSInteger score;
 @property(nonatomic, readwrite) NSUInteger flips;
+@property(nonatomic, readwrite) Deck *deck;
 @property(nonatomic, readwrite) NSMutableArray *histories;
 @property(strong, nonatomic, readwrite) NSMutableArray *cards; // Of Card
 @property(nonatomic) NSUInteger numberOfMatchingCards;
@@ -26,6 +27,7 @@ static const int COST_TO_CHOSE = 1;
     self = [super init];
 
     if (self) {
+        self.deck = deck;
         self.numberOfMatchingCards = numberOfMatchingCards;
 
         for (int i = 0; i < count; i++) {
@@ -40,6 +42,14 @@ static const int COST_TO_CHOSE = 1;
     }
 
     return self;
+}
+
+- (void)dealCard
+{
+    Card *card = [self.deck drawRandomCard];
+    if (card) {
+        [self.cards addObject:card];
+    }
 }
 
 - (void)chooseCardAtIndex:(NSUInteger)index {

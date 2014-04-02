@@ -524,26 +524,19 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Spel niet gestart" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="am8-ez-jzA">
-                                <rect key="frame" x="20" y="390" width="280" height="21"/>
+                                <rect key="frame" x="20" y="390" width="160" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KtK-m1-XN6">
-                                <rect key="frame" x="20" y="83" width="88" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6uk-Q0-j8A">
-                                <rect key="frame" x="236" y="83" width="64" height="28"/>
+                                <rect key="frame" x="236" y="83" width="64" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal">
                                     <attributedString key="attributedTitle">
-                                        <fragment content="Reset">
+                                        <fragment content="Re-deal">
                                             <attributes>
                                                 <font key="NSFont" size="15" name="HelveticaNeue"/>
                                             </attributes>
@@ -551,6 +544,7 @@
                                     </attributedString>
                                 </state>
                                 <connections>
+                                    <action selector="touchRedealButton:" destination="NO0-Se-zYw" eventType="touchUpInside" id="a5Z-ba-HVz"/>
                                     <action selector="touchResetButton:" destination="NO0-Se-zYw" eventType="touchUpInside" id="ZVA-ip-xQr"/>
                                 </connections>
                             </button>
@@ -558,6 +552,24 @@
                                 <rect key="frame" x="20" y="119" width="280" height="268"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KtK-m1-XN6">
+                                <rect key="frame" x="20" y="83" width="145" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L6L-Pt-yV8">
+                                <rect key="frame" x="188" y="381" width="112" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Deal 3 cards">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="touchDealMoreCardsButton:" destination="NO0-Se-zYw" eventType="touchUpInside" id="kFq-vA-rIM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -569,10 +581,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="dealMoreCardsButton" destination="L6L-Pt-yV8" id="gSh-MZ-bwx"/>
                         <outlet property="gridView" destination="5bF-Ch-7BR" id="nwt-BZ-wkm"/>
                         <outlet property="historyLabel" destination="am8-ez-jzA" id="yZi-DE-hRS"/>
+                        <outlet property="redealButton" destination="6uk-Q0-j8A" id="rRy-Pa-3vt"/>
                         <outlet property="resetButton" destination="6uk-Q0-j8A" id="xkz-mw-r6B"/>
-                        <outlet property="scoreLabel" destination="KtK-m1-XN6" id="37t-ob-CNF"/>
+                        <outlet property="scoreLabel" destination="KtK-m1-XN6" id="02f-QJ-mhy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="swe-DQ-oYL" userLabel="First Responder" sceneMemberID="firstResponder"/>

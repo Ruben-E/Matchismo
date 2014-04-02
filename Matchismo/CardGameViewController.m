@@ -50,6 +50,24 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
     return [[CardMatchingGame alloc] initWithCardGameCount:[self initialCards] usingDeck:[self deck] numberOfMatchingCards:[self numberOfMatchingCards]];
 }
 
+- (Grid *)createGrid
+{
+    Grid *grid = [[Grid alloc] init];
+    grid.cellAspectRatio = 0.75;
+    grid.minimumNumberOfCells = self.game.cards.count ? self.game.cards.count : self.initialCards;
+    grid.maxCellWidth = self.cardWidth;
+    grid.maxCellHeight = self.cardHeight;
+    grid.size = self.gridView.bounds.size;
+    
+    return grid;
+
+}
+
+- (void)recalculateGrid
+{
+    _grid = [self createGrid];
+}
+
 - (void)resetCardViews
 {
     for (NSUInteger i = 0; i < [self.cardViews count]; i++) {
@@ -112,6 +130,9 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
 
 - (void)updateUI
 {
+    [self recalculateGrid];
+    [self updateScoreLabel];
+    
     NSMutableArray *newViews = [[NSMutableArray alloc] init];
     
     for (NSUInteger i = 0; i < [self.game.cards count]; i++) {
@@ -132,12 +153,16 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
         if (![card isMatched]) {
             cardView = [self getCardView:cardView forCard:card];
             
-//            CGRect frame = [self.grid frameOfCellAtRow:i / self.grid.columnCount
-//                                              inColumn:i % self.grid.columnCount];
-//            frame = CGRectInset(frame, frame.size.width * 0.05, frame.size.height * 0.05);
-//            cardView.frame = frame;
-//            
- //           [self.gridView addSubview:cardView];
+            CGRect frame = [self.grid frameOfCellAtRow:cardView.tag / self.grid.columnCount
+                                              inColumn:cardView.tag % self.grid.columnCount];
+            frame = CGRectInset(frame, frame.size.width * 0.05, frame.size.height * 0.05);
+            
+            if (![self frame:cardView.frame matchesFrame:frame]) {
+                [UIView animateWithDuration:0.5
+                                 animations:^{
+                                      cardView.frame = frame;
+                                 } completion:NULL];
+            }
         } else {
             if (self.removeMatchedCards) {
                 [self.cardViews removeObject:cardView];
@@ -183,6 +208,25 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
     }
 }
 
+-(BOOL)frame:(CGRect)frame1 matchesFrame:(CGRect)frame2
+{
+    if (frame1.size.width == frame2.size.width && frame1.size.height == frame2.size.height) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+- (void)updateScoreLabel
+{
+     self.scoreLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Score: %d", nil), self.game.score];
+}
+
+- (IBAction)touchRedealButton:(UIButton *)sender {
+    [self restartGame];
+    [self updateUI];
+}
+
 // Setters / Getters
 
 - (NSUInteger)numberOfMatchingCards {
@@ -213,13 +257,9 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
 - (Grid *)grid
 {
     if (!_grid) {
-        _grid = [[Grid alloc] init];
-        _grid.cellAspectRatio = self.cardWidth / self.cardHeight;
-        _grid.minimumNumberOfCells = self.initialCards;
-        _grid.maxCellWidth = self.cardWidth;
-        _grid.maxCellHeight = self.cardHeight;
-        _grid.size = self.gridView.frame.size;
+        _grid = [self createGrid];
     }
+    
     return _grid;
 }
 

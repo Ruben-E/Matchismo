@@ -18,11 +18,12 @@
                 numberOfMatchingCards:(NSUInteger)numberOfMatchingCards;
 
 - (void)chooseCardAtIndex:(NSUInteger)index;
-
 - (Card *)cardAtIndex:(NSUInteger)index;
+- (void)dealCard;
 
 @property(nonatomic, readonly) NSInteger score;
 @property(nonatomic, readonly) NSUInteger flips;
+@property(nonatomic, readonly) Deck *deck;
 @property(strong, nonatomic, readonly) NSMutableArray *cards; // Of Card
 @property(nonatomic, readonly) NSMutableArray *histories; // of History
 @end

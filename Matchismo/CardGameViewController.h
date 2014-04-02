@@ -25,6 +25,8 @@ static NSString * const DEFAULT_HISTORY_LABEL_TEXT = @"No actions performed";
 
 // Refactor
 @property(weak, nonatomic) IBOutlet UIView *gridView;
+@property(weak, nonatomic) IBOutlet UIButton *redealButton;
+@property(weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property(nonatomic) NSUInteger cardWidth;
 @property(nonatomic) NSUInteger cardHeight;
 @property(nonatomic) NSUInteger initialCards;
