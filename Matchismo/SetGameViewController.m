@@ -39,11 +39,21 @@
     [self updateUI];
 }
 
+- (void)didMoveToParentViewController:(UIViewController *)parent {
+    [super didMoveToParentViewController:parent];
+    [self updateUI];
+}
+
 // Handlers
 
 - (IBAction)touchDealMoreCardsButton:(UIButton *)sender {
     for (int i = 0; i < 3; i++) {
         [self.game dealCard];
+    }
+
+    if (self.pileAnimation) {
+        self.pileAnimation = nil;
+        [self moveCardViewsToOriginalPosition:self.cardViews];
     }
 
     [self updateUI];

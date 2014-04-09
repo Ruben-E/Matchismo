@@ -27,7 +27,7 @@ static NSUInteger const FULL_MATCH_SUITS_SCORE = 2;
     if ([otherCards count] > 1) {
         NSInteger differentSuits = [self numberOfDifferentSuitsForCards:otherCards];
         NSInteger differentRanks = [self numberOfDifferentRanksForCards:otherCards];
-        
+
         return [self calculatePointsForNumberOfCards:[otherCards count] numberOfDifferentSuits:differentSuits NumberOfDifferentRanks:differentRanks];
     }
 
@@ -36,29 +36,29 @@ static NSUInteger const FULL_MATCH_SUITS_SCORE = 2;
 
 - (int)numberOfDifferentRanksForCards:(NSArray *)cards {
     NSMutableSet *ranks = [[NSMutableSet alloc] init];
-    
+
     for (PlayingCard *card in cards) {
         [ranks addObject:[NSNumber numberWithUnsignedInteger:card.rank]];
     }
-    
+
     return [ranks count];
 }
 
 - (int)numberOfDifferentSuitsForCards:(NSArray *)cards {
     NSMutableSet *suits = [[NSMutableSet alloc] init];
-    
+
     for (PlayingCard *card in cards) {
         [suits addObject:card.suit];
     }
-    
+
     return [suits count];
 }
 
 - (int)calculatePointsForNumberOfCards:(NSUInteger)numberOfCards
                 numberOfDifferentSuits:(NSUInteger)numberOfDifferentSuits
                 NumberOfDifferentRanks:(NSUInteger)numberOfDifferentRanks {
-    int score=0;
-    
+    int score = 0;
+
     // For partial match
     if (numberOfCards >= 3) {
         if (numberOfDifferentRanks == 2) {
@@ -67,14 +67,14 @@ static NSUInteger const FULL_MATCH_SUITS_SCORE = 2;
             score = PARTIAL_MATCH_SUITS_SCORE * (numberOfCards - 1);
         }
     }
-    
+
     // Full match
     if (numberOfDifferentRanks == 1) {
         score = FULL_MATCH_RANKS_SCORE * (numberOfCards - 1);
     } else if (numberOfDifferentSuits == 1) {
         score = FULL_MATCH_SUITS_SCORE * (numberOfCards - 1);
     }
-    
+
     return score;
 }
 

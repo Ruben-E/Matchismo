@@ -18,7 +18,9 @@
                 numberOfMatchingCards:(NSUInteger)numberOfMatchingCards;
 
 - (void)chooseCardAtIndex:(NSUInteger)index;
+
 - (Card *)cardAtIndex:(NSUInteger)index;
+
 - (void)dealCard;
 
 @property(nonatomic, readonly) NSInteger score;

@@ -20,6 +20,7 @@ static NSString *const DEFAULT_HISTORY_LABEL_TEXT = @"No actions performed";
 @property(strong, nonatomic) CardMatchingGame *game;
 @property(strong, nonatomic) Deck *deck;
 
+@property(strong, nonatomic) NSMutableArray *cardViews; // Of CardView
 @property(weak, nonatomic) IBOutlet UIView *gridView;
 @property(weak, nonatomic) IBOutlet UIButton *redealButton;
 @property(weak, nonatomic) IBOutlet UILabel *scoreLabel;
@@ -28,9 +29,13 @@ static NSString *const DEFAULT_HISTORY_LABEL_TEXT = @"No actions performed";
 @property(nonatomic) NSUInteger initialCards;
 @property(nonatomic) BOOL cardsShouldFlip;
 @property(nonatomic) BOOL removeMatchedCards;
+@property(strong, nonatomic) UIDynamicAnimator *pileAnimation;
 
 - (CardMatchingGame *)game;
 
 - (void)restartGame;
+
 - (void)updateUI;
+
+- (void)moveCardViewsToOriginalPosition:(NSArray *)cardViews;
 @end

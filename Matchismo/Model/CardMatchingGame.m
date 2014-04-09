@@ -22,6 +22,7 @@
 static const int MISMATCH_PENALTY = 2;
 static const int MATCH_BONUS = 4;
 static const int COST_TO_CHOSE = 1;
+static const int COST_TO_DEAL_RANDOM_CARD = 15;
 
 - (instancetype)initWithCardGameCount:(NSUInteger)count usingDeck:(Deck *)deck numberOfMatchingCards:(NSUInteger)numberOfMatchingCards {
     self = [super init];
@@ -44,11 +45,11 @@ static const int COST_TO_CHOSE = 1;
     return self;
 }
 
-- (void)dealCard
-{
+- (void)dealCard {
     Card *card = [self.deck drawRandomCard];
     if (card) {
         [self.cards addObject:card];
+        self.score -= COST_TO_DEAL_RANDOM_CARD;
     }
 }
 

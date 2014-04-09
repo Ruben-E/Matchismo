@@ -16,9 +16,7 @@
 static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
 
 @interface CardGameViewController ()
-@property(strong, nonatomic) NSMutableArray *cardViews; // Of CardView
 @property(strong, nonatomic) Grid *grid;
-@property(strong, nonatomic) UIDynamicAnimator *pileAnimation;
 @end
 
 @implementation CardGameViewController
@@ -101,15 +99,13 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
     _grid = [self createGrid];
 }
 
-- (CGRect)getFrameForCardView:(UIView *)cardView
-{
+- (CGRect)getFrameForCardView:(UIView *)cardView {
     CGRect frame = [self.grid frameOfCellAtRow:cardView.tag / self.grid.columnCount
                                       inColumn:cardView.tag % self.grid.columnCount];
     return CGRectInset(frame, frame.size.width * 0.05, frame.size.height * 0.05);
 }
 
-- (void)moveCardViewsToOriginalPosition:(NSArray *)cardViews
-{
+- (void)moveCardViewsToOriginalPosition:(NSArray *)cardViews {
     for (NSUInteger i = 0; i < [cardViews count]; i++) {
         UIView *cardView = (UIView *) cardViews[i];
         CGRect frame = [self getFrameForCardView:cardView];
@@ -347,8 +343,10 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
     return _cardViews;
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    if (self.pileAnimation) {
+        self.pileAnimation = nil;
+    }
     [self updateUI];
 }
 

@@ -26,7 +26,7 @@
     NSMutableString *contents = [[NSMutableString alloc] init];
     for (id obj in cards) {
         if ([obj isKindOfClass:[Card class]]) {
-            if([obj contents]) {
+            if ([obj contents]) {
                 if ([[obj contents] isKindOfClass:[NSAttributedString class]]) {
                     [contents appendString:[[obj contents] string]];
                 } else if ([[obj contents] isKindOfClass:[NSString class]]) {
