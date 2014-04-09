@@ -31,6 +31,7 @@
 
     self.numberOfMatchingCards = 2;
     self.removeMatchedCards = NO;
+    self.cardsShouldFlip = YES;
 
     self.initialCards = 24;
     self.cardWidth = 60;

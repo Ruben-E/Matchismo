@@ -197,7 +197,7 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
                     if (self.cardsShouldFlip) {
                         [UIView transitionWithView:gesture.view
                                           duration:0.5
-                                           options:UIViewAnimationOptionTransitionFlipFromTop animations:^{
+                                           options:UIViewAnimationOptionTransitionFlipFromRight animations:^{
                             card.chosen = !card.chosen;
                             [self getCardView:gesture.view forCard:card];
                         }               completion:^(BOOL finished) {
@@ -344,6 +344,13 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    if (self.pileAnimation) {
+        self.pileAnimation = nil;
+    }
+    [self updateUI];
+}
+
+-(void)viewWillLayoutSubviews {
     if (self.pileAnimation) {
         self.pileAnimation = nil;
     }
