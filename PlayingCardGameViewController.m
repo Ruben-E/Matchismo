@@ -57,4 +57,22 @@
     }
 }
 
+- (UIView *)getCardView:(UIView *)view forCard:(Card *)card {
+    if ([card isKindOfClass:[PlayingCard class]]) {
+        PlayingCardView *cardView = (PlayingCardView *) view;
+        if (!cardView) {
+            cardView = [[PlayingCardView alloc] init];
+        }
+
+        PlayingCard *playingCard = (PlayingCard *) card;
+        cardView.suit = playingCard.suit;
+        cardView.rank = playingCard.rank;
+        cardView.faceUp = playingCard.chosen;
+
+        return cardView;
+    }
+
+    return nil;
+}
+
 @end
