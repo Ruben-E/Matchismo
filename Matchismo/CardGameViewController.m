@@ -8,11 +8,13 @@
 
 #import "CardGameViewController.h"
 #import "Grid.h"
+#import "PlayingCardView.h"
 
 static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
 
 @interface CardGameViewController ()
 @property(strong, nonatomic) Grid *grid;
+@property(nonatomic) NSUInteger cardsFlipping;
 @end
 
 @implementation CardGameViewController
@@ -191,16 +193,22 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
             if (!self.pileAnimation) {
                 if (!card.matched) {
                     if (self.cardsShouldFlip) {
-                        [UIView transitionWithView:gesture.view
-                                          duration:0.5
-                                           options:UIViewAnimationOptionTransitionFlipFromRight animations:^{
-                            card.chosen = !card.chosen;
-                            [self getCardView:gesture.view forCard:card];
-                        }               completion:^(BOOL finished) {
-                            card.chosen = !card.chosen;
-                            [self.game chooseCardAtIndex:gesture.view.tag];
-                            [self updateUI];
-                        }];
+                        if (self.cardsFlipping < self.numberOfMatchingCards) {
+                            self.cardsFlipping += 1;
+                            [UIView transitionWithView:gesture.view
+                                              duration:0.5
+                                               options:UIViewAnimationOptionTransitionFlipFromRight
+                                            animations:^{
+                                                card.chosen = !card.chosen;
+                                                [self getCardView:gesture.view forCard:card];
+                                            }
+                                            completion:^(BOOL finished) {
+                                                card.chosen = !card.chosen;
+                                                [self.game chooseCardAtIndex:gesture.view.tag];
+                                                self.cardsFlipping -= 1;
+                                                [self updateUI];
+                                            }];
+                        }
                     } else {
                         [self.game chooseCardAtIndex:gesture.view.tag];
                         [self updateUI];
@@ -258,6 +266,7 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
                                  cardView.frame = frame;
                              } completion:NULL];
         }
+        
         if ([card isMatched]) {
             if (self.removeMatchedCards) {
                 [self.cardViews removeObject:cardView];
@@ -337,6 +346,14 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
         _cardViews = [[NSMutableArray alloc] init];
     }
     return _cardViews;
+}
+
+- (NSUInteger)cardsFlipping {
+    if (!_cardsFlipping) {
+        _cardsFlipping = 0;
+    }
+    
+    return _cardsFlipping;
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
