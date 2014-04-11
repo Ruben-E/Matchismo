@@ -11,8 +11,6 @@
 #import "Deck.h"
 #import "CardMatchingGame.h"
 
-static NSString *const DEFAULT_HISTORY_LABEL_TEXT = @"No actions performed";
-
 @interface CardGameViewController : UIViewController
 
 // Logic

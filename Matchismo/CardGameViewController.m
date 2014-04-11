@@ -7,11 +7,7 @@
 //
 
 #import "CardGameViewController.h"
-#import "CardMatchingGame.h"
 #import "Grid.h"
-#import "SetCard.h"
-#import "PlayingCard.h"
-#import "SetCardView.h"
 
 static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
 
@@ -228,7 +224,7 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
 #pragma mark - UI Updates
 
 #define FLY_OUT_ANIMATION_DURATION 1.2
-#define FLY_IN_ANIMATION_DURATION 1.2
+#define FLY_IN_ANIMATION_DURATION 0.5
 
 - (void)updateUI {
     [self recalculateGrid];
@@ -296,7 +292,7 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
 
         CGRect frame = [self getFrameForCardView:cardView];
 
-        [UIView animateWithDuration:0.5
+        [UIView animateWithDuration:FLY_IN_ANIMATION_DURATION
                               delay:1.5 * viewIndex / [self.cardViews count]
                             options:UIViewAnimationOptionCurveEaseInOut
                          animations:^{
@@ -350,7 +346,7 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
     [self updateUI];
 }
 
--(void)viewWillLayoutSubviews {
+- (void)viewWillLayoutSubviews {
     if (self.pileAnimation) {
         self.pileAnimation = nil;
     }

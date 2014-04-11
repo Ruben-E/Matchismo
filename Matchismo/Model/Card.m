@@ -4,7 +4,6 @@
 //
 
 #import "Card.h"
-#import "SetCard.h"
 
 
 @implementation Card {
