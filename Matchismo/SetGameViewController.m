@@ -36,13 +36,12 @@
     self.initialCards = 12;
     self.cardWidth = 60;
     self.cardHeight = 80;
-    [self updateUI];
 }
 
-- (void)didMoveToParentViewController:(UIViewController *)parent {
-    [super didMoveToParentViewController:parent];
-    [self updateUI];
-}
+//- (void)didMoveToParentViewController:(UIViewController *)parent {
+//    [super didMoveToParentViewController:parent];
+//    [self updateUI];
+//}
 
 // Handlers
 

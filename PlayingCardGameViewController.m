@@ -36,8 +36,6 @@
     self.initialCards = 24;
     self.cardWidth = 60;
     self.cardHeight = 80;
-    [self updateUI];
-
 }
 
 - (IBAction)changeNumberofMatchingCards:(UISegmentedControl *)sender {
@@ -67,7 +65,7 @@
         PlayingCard *playingCard = (PlayingCard *) card;
         cardView.suit = playingCard.suit;
         cardView.rank = playingCard.rank;
-        cardView.faceUp = playingCard.chosen;
+        cardView.faceUp = playingCard.chosen || playingCard.matched;
 
         return cardView;
     }

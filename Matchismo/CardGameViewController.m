@@ -269,7 +269,7 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
                 }];
             } else {
                 if (card.isMatched) {
-                    cardView.alpha = 0.6;
+                    cardView.alpha = 0.75;
                 } else {
                     cardView.alpha = 1.0;
                 }
@@ -346,10 +346,11 @@ static NSUInteger const DEFAULT_NUMBER_OF_MATCHING_CARDS = 2;
     [self updateUI];
 }
 
-- (void)viewWillLayoutSubviews {
+- (void)viewDidLayoutSubviews {
     if (self.pileAnimation) {
         self.pileAnimation = nil;
     }
+    
     [self updateUI];
 }
 
