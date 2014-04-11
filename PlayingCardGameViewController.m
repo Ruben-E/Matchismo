@@ -63,6 +63,17 @@
         }
 
         PlayingCard *playingCard = (PlayingCard *) card;
+        
+        BOOL newFaceup = playingCard.chosen || playingCard.matched;
+        
+        if (cardView.faceUp && (cardView.faceUp != newFaceup)) {
+            [UIView transitionWithView:cardView
+                              duration:0.5
+                               options:UIViewAnimationOptionTransitionFlipFromRight
+                            animations:NULL
+                            completion:NULL];
+        }
+        
         cardView.suit = playingCard.suit;
         cardView.rank = playingCard.rank;
         cardView.faceUp = playingCard.chosen || playingCard.matched;
